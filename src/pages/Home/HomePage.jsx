@@ -71,7 +71,71 @@ export default function HomePage() {
 
                     <DividerComponent />
 
-
+                    {tweets.map(item => (
+                        <Card className='bg-neutral-900 rounded-none' key={item.id}>
+                            <CardHeader className='text-white justify-between'>
+                                <div>
+                                    <UserComponent
+                                        firstname="john"
+                                        lastname="doe"
+                                        username="01-03-2023 11-03-08"
+                                        file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                                    />
+                                </div>
+                                <div className='flex items-center'>
+                                    <ButtonComponent
+                                        radius="full"
+                                        size="sm"
+                                        name="Follow"
+                                    />
+                                    <Dropdown className='bg-neutral-900'>
+                                        <DropdownTrigger>
+                                            <button className='bg-none p-0 border-none outline-none'>
+                                                <Icon icon="menu-icon" />
+                                            </button>
+                                        </DropdownTrigger>
+                                        <DropdownMenu aria-label='static actions' className='hover:bg-black'>
+                                            <DropdownItem
+                                                key="edit"
+                                                color="primary"
+                                                startContent={<Icon icon="edit-icon" />}
+                                            >
+                                                Edit
+                                            </DropdownItem>
+                                            <DropdownItem
+                                                key="report"
+                                                color="primary"
+                                                startContent={<Icon icon="report-icon" />}
+                                            >
+                                                Report
+                                            </DropdownItem>
+                                            <DropdownItem
+                                                key="delete"
+                                                color="danger"
+                                                className='text-danger'
+                                                startContent={<Icon icon="delete-icon" />}
+                                            >
+                                                Delete
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                </div>
+                            </CardHeader>
+                            <CardBody>
+                                <p className='text-white text-sm md:text-md'>
+                                    {item.content}
+                                </p>
+                                <span className="pt-2 text-blue-500 text-sm md:text-md">
+                                    {item.hashtag}
+                                </span>
+                                <img
+                                    className='mt-2 w-full min-h-12 rounded-xl'
+                                    alt="post-image"
+                                    src={item.image}
+                                />
+                            </CardBody>
+                        </Card>
+                    ))}
                 </div>
             </div>
         </>
