@@ -7,7 +7,7 @@ export default function NavLinks() {
     const links = [
         {
             id: 1,
-            path: 'home',
+            path: '',
             name: 'Home',
             icon: 'home-icon'
         },

@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <MenuNav />,
     errorElement: <ErrorPage />,
     children: [
-      { path: 'home', element: <HomePage /> },
+      { path: '', element: <HomePage /> },
       { path: 'trending', element: <TrendingPage /> },
       { path: 'explore', element: <ExplorePage /> },
       { path: 'bookmark', element: <BookmarkPage /> },
