@@ -7,16 +7,18 @@ import {
     FaMoneyBillWave,
     FaRegListAlt,
     FaHashtag,
-    FaRegImages
+    FaRegImages,
+    FaRegHeart,
+    FaRegComment
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
-import { IoIosLogIn } from "react-icons/io"
+import { IoIosLogIn, IoMdDownload } from "react-icons/io"
 import { GoSignIn } from "react-icons/go";
 import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/md"
 import { IoCheckmarkCircleSharp } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
-import { CiMenuKebab, CiEdit } from "react-icons/ci"
+import { CiMenuKebab, CiEdit, CiShare2 } from "react-icons/ci"
 
 export default function Icon(props) {
     const { icon } = props
@@ -121,6 +123,26 @@ export default function Icon(props) {
             id: 17,
             name: 'delete-icon',
             icon: <MdDelete className='text-white text-lg md:text-1xl' />
+        },
+        {
+            id: 18,
+            name: "heart-icon",
+            icon: <FaRegHeart className='text-white text-sm md:text-1xl' />
+        },
+        {
+            id: 19,
+            name: "comment-icon",
+            icon: <FaRegComment className='text-white text-sm md:text-1xl' />
+        },
+        {
+            id: 20,
+            name: "download-icon",
+            icon: <IoMdDownload className='text-white text-[0.9rem] md:text-[1.1rem]' />
+        },
+        {
+            id: 21,
+            name: "share-icon",
+            icon: <CiShare2 className='text-white text-[0.9rem] md:text-[1.1rem]' />
         }
     ]
 
