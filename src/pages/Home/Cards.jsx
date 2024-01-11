@@ -56,7 +56,10 @@ export default function Cards(props) {
                                 size="sm"
                                 name="Follow"
                             />
-                            <DropDown icon={<Icon icon="menu-icon" />} id={item.id}/>
+                            <DropDown
+                                icon={<Icon icon="menu-icon" />}
+                                id={item.id}
+                            />
                         </div>
                     </CardHeader>
                     <CardBody>

@@ -8,7 +8,7 @@ import {
 import Icon from '../../components/Icon'
 
 export default function DropDown(props) {
-    const { icon, id } = props
+    const { id } = props
 
     {/** handle edit function */}
     function handleEdit(id) {

@@ -14,9 +14,12 @@ import UserComponent from '../../components/UserComponent';
 import Links from '../../components/Links';
 import ButtonComponent from '../../components/ButtonComponent'
 import DividerComponent from '../../components/DividerComponent';
+import TrendingSideBar from './TrendingSideBar';
 
 export default function MenuNav() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false)
+    const  [ isTrendingMenu, setIsTrendingMenu ] = useState(false)
+
     return (
         <>
             <Container>
@@ -50,7 +53,7 @@ export default function MenuNav() {
                             </div>
                         </div>
 
-                        <div className='md:block md:col-span-4'>
+                        <div className='md:block md:col-span-3'>
                             <Navbar
                                 isMenuOpen={isMenuOpen}
                                 onMenuOpenChange={setIsMenuOpen}
@@ -70,20 +73,39 @@ export default function MenuNav() {
                                         file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
                                         color="primary"
                                         size="md"
+                                        onClick={() => setIsTrendingMenu(!isTrendingMenu)}
                                     />
                                 </NavbarContent>
                             </Navbar>
-                            <div className='md:grid md:grid-cols-4'>
+
+                            <div className='md:grid md:grid-cols-3'>
                                 <div className='md:col-span-3'>
                                     <Outlet />
                                 </div>
-                                <div className='hidden md:hidden fixed w-full h-full bottom-0 z-10 py-16 md:relative md:py-0'>
-                                    Side bar
+                            </div>
+                        </div>
+
+
+                        <div className='hidden md:block md:py-0 bg-neutral-900'>
+                            <div className='sticky top-0'>
+                                <div className='py-4'>
+                                    <TrendingSideBar />
                                 </div>
                             </div>
                         </div>
 
                         {/** mobile responsive */}
+                        <div
+                            className={`
+                                md:hidden fixed w-full h-full bottom-0 bg-neutral-900 z-10 py-16 overflow-y-auto
+                                duration-500 ${isTrendingMenu ? 'left-0' : 'left-[100%]'}
+                            `}
+                        >
+                            <div className='py-2 px-5'>
+                                <TrendingSideBar />
+                            </div>
+                        </div>
+
                         <div
                             className={`
                                 md:hidden fixed w-full h-full overflow-y-auto bottom-0 z-10 py-16 bg-neutral-900

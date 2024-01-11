@@ -1,5 +1,6 @@
 import Icon from "./Icon";
 import { NavLink, useLocation  } from "react-router-dom";
+import List from "./List";
 
 export default function NavLinks() {
     const location = useLocation()
@@ -52,7 +53,7 @@ export default function NavLinks() {
     return (
         <>
             {links.map(item => (
-                <li key={item.id} className={location.pathname === `/${item.path}` ? 'flex items-center px-6 hover:bg-black bg-black' : 'flex items-center px-6 hover:bg-black'}>
+                <List key={item.id} activeLocation={`/${item.path}`}>
                     <Icon icon={item.icon} />
                     <NavLink
                         to={item.path}
@@ -60,7 +61,7 @@ export default function NavLinks() {
                     >
                         {item.name}
                     </NavLink>
-                </li>
+                </List>
             ))}
         </>
     )

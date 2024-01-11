@@ -42,7 +42,7 @@ export default function Icon(props) {
         {
             id: 4,
             name: 'search-icon',
-            icon: <FaSearch className='text-white text-lg md:text-1xl' />
+            icon: <FaSearch className='text-white text-md md:text-1xl' />
         },
         {
             id: 5,
