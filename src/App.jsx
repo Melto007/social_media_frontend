@@ -9,6 +9,7 @@ import BookmarkPage from './pages/Bookmark/BookmarkPage';
 import MonetisationPage from './pages/Monetisation/MonetisationPage';
 import MessagePage from './pages/Message/MessagePage';
 import ListsPage from './pages/Lists/ListsPage';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,8 @@ const router = createBrowserRouter([
       { path: 'bookmark', element: <BookmarkPage /> },
       { path: 'monetisation', element: <MonetisationPage /> },
       { path: 'message', element: <MessagePage /> },
-      { path: 'lists', element: <ListsPage /> }
+      { path: 'lists', element: <ListsPage /> },
+      { path: 'profile', element: <Profile /> }
     ]
   }
 ])

@@ -1,10 +1,8 @@
 import Icon from "./Icon";
-import { NavLink, useLocation  } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import List from "./List";
 
 export default function NavLinks() {
-    const location = useLocation()
-
     const links = [
         {
             id: 1,
@@ -43,10 +41,10 @@ export default function NavLinks() {
             icon: 'list-icon'
         },
         {
-            id: 7,
-            path: 'trending',
-            name: 'Trending',
-            icon: 'hash-icon'
+            id: 8,
+            path: 'profile',
+            name: 'Profile',
+            icon: 'user-icon'
         }
     ]
 

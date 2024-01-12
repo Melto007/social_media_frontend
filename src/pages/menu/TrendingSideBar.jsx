@@ -55,11 +55,11 @@ export default function TrendingSideBar() {
                     <SearchComponent />
                 </div>
 
-                <ul className='md:max-h-[40em] overflow-y-auto overflow-hidden'>
+                <ul className='md:max-h-[45em] overflow-y-auto overflow-hidden'>
                     <li>
                         <div className='w-full'>
                             {data.map(item => (
-                                <Link key={item.position} className='flex justify-between items-center w-full py-4 px-4 bg-neutral-800 md:py-[0.8em]'>
+                                <Link key={item.position} className='flex justify-between items-center w-full py-4 px-4  md:py-[0.8em]'>
                                     <span className='font-bold text-sm  md:text-md'>{item.name}</span>
                                     <span className='flex gap-1 items-center'>
                                         <Icon icon="hash-icon" />

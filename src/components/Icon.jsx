@@ -9,7 +9,8 @@ import {
     FaHashtag,
     FaRegImages,
     FaRegHeart,
-    FaRegComment
+    FaRegComment,
+    FaUser
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
@@ -143,6 +144,11 @@ export default function Icon(props) {
             id: 21,
             name: "share-icon",
             icon: <CiShare2 className='text-white text-[0.9rem] md:text-[1.1rem]' />
+        },
+        {
+            id: 22,
+            name: "user-icon",
+            icon: <FaUser className='text-white text-md md:text-1xl' />
         }
     ]
 

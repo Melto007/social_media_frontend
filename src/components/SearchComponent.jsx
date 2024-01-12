@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { data } from '../Data'
 import Icon from './Icon'
 
 export default function SearchComponent() {
-
     const [ activeSearch, setActiveSearch ] = useState([])
+    const myRef = useRef(null)
 
     function handleSearch(e) {
         const searchWord = e.target.value
@@ -18,14 +18,26 @@ export default function SearchComponent() {
         )
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+    }
+
+    function handleItem(item) {
+        if(Object.keys(item).length !== 0) {
+            myRef.current.value = item.title
+            setActiveSearch([])
+        }
+    }
+
     return (
         <>
-            <form className='w-full'>
+            <form className='w-full' onSubmit={handleSubmit}>
                 <div className='relative'>
                     <input
                         type="text"
                         placeholder='search...'
                         className='w-full rounded-full p-2 bg-neutral-800 outline-none border-none'
+                        ref={myRef}
                         onChange={(e) => handleSearch(e)}
                     />
                     <button className='absolute right-1 top-1/2 -translate-y-1/2 p-2 rounded-full bg-neutral-700'>
@@ -34,10 +46,10 @@ export default function SearchComponent() {
 
                     {
                         activeSearch.length > 0 && (
-                            <div className='absolute w-full bg-neutral-800 flex flex-col gap-2 rounded-lg p-2 mt-1 left-1/2 -translate-x-1/2'>
+                            <div className='absolute w-full bg-neutral-800 flex flex-col gap-2 rounded-lg p-2 mt-1 left-1/2 -translate-x-1/2 cursor-pointer'>
                                 {
                                     activeSearch.slice(0, 15).map((item, key) => (
-                                        <span key={key}>{item.title}</span>
+                                        <span key={key} onClick={() => handleItem(item)}>{item.title}</span>
                                     ))
                                 }
                             </div>
