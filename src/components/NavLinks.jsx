@@ -12,9 +12,9 @@ export default function NavLinks() {
         },
         {
             id: 2,
-            path: 'explore',
-            name: 'Explore',
-            icon: 'search-icon'
+            path: 'notification',
+            name: 'Notification',
+            icon: 'bell-icon'
         },
         {
             id: 3,

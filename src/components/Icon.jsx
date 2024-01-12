@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
-import { IoIosLogIn, IoMdDownload } from "react-icons/io"
+import { IoIosLogIn, IoMdDownload, IoMdNotifications   } from "react-icons/io"
 import { GoSignIn } from "react-icons/go";
 import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/md"
 import { IoCheckmarkCircleSharp } from "react-icons/io5"
@@ -149,6 +149,11 @@ export default function Icon(props) {
             id: 22,
             name: "user-icon",
             icon: <FaUser className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 23,
+            name: 'bell-icon',
+            icon: <IoMdNotifications className='text-white text-lg md:text-[1.4em]' />
         }
     ]
 
