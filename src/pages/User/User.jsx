@@ -14,7 +14,7 @@ export default function User() {
                             <div className="hidden md:block m-auto p-auto">
                                 <Icon icon="twitter-login-icon" />
                             </div>
-                            <div className="md:max-w-[20em] md:m-auto md:p-auto md:translate-y-[10%]">
+                            <div className="m-auto p-auto md:max-w-[25em] md:translate-y-10">
                                 <div className="flex flex-col justify-between gap-5">
                                     <h1 className="text-3xl font-bold mt-5 md:text-4xl">Happening now</h1>
                                     <h1 className="text-lg font-bold md:text-2xl">Join today.</h1>
