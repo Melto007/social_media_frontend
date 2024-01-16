@@ -160,17 +160,17 @@ export default function Icon(props) {
         {
             id: 24,
             name: 'twitter-login-icon',
-            icon: <FaTwitter className='text-white text-2xl md:text-3xl' />
+            icon: <FaTwitter className='text-white text-2xl md:text-[15rem]' />
         },
         {
             id: 25,
             name: 'google-icon',
-            icon: <FcGoogle className='text-white text-[1.4rem] md:text-[1.4em]' />
+            icon: <FcGoogle className='text-white text-[1.4rem] md:text-[2em]' />
         },
         {
             id: 26,
             name: 'facebook-icon',
-            icon: <FaFacebookF className='text-blue-700 text-[1.4rem] md:text-[1.4em]' />
+            icon: <FaFacebookF className='text-blue-700 text-[1.4rem] md:text-[2em]' />
         }
     ]
 
