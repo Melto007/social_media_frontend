@@ -10,7 +10,8 @@ import {
     FaRegImages,
     FaRegHeart,
     FaRegComment,
-    FaUser
+    FaUser,
+    FaFacebookF
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
@@ -20,6 +21,7 @@ import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/m
 import { IoCheckmarkCircleSharp } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
 import { CiMenuKebab, CiEdit, CiShare2 } from "react-icons/ci"
+import { FcGoogle } from "react-icons/fc"
 
 export default function Icon(props) {
     const { icon } = props
@@ -154,6 +156,21 @@ export default function Icon(props) {
             id: 23,
             name: 'bell-icon',
             icon: <IoMdNotifications className='text-white text-lg md:text-[1.4em]' />
+        },
+        {
+            id: 24,
+            name: 'twitter-login-icon',
+            icon: <FaTwitter className='text-white text-2xl md:text-3xl' />
+        },
+        {
+            id: 25,
+            name: 'google-icon',
+            icon: <FcGoogle className='text-white text-[1.4rem] md:text-[1.4em]' />
+        },
+        {
+            id: 26,
+            name: 'facebook-icon',
+            icon: <FaFacebookF className='text-blue-700 text-[1.4rem] md:text-[1.4em]' />
         }
     ]
 
