@@ -11,7 +11,7 @@ export default function User() {
                 <div className="bg-neutral-900 h-[100vh]">
                     <div className="px-4 py-2">
                         <div className="grid md:grid-cols-2">
-                            <div className="hidden md:block m-auto p-auto">
+                            <div className=" m-auto p-auto">
                                 <Icon icon="twitter-login-icon" />
                             </div>
                             <div className="m-auto p-auto md:max-w-[25em] md:translate-y-10">

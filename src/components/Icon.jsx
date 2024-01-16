@@ -160,7 +160,7 @@ export default function Icon(props) {
         {
             id: 24,
             name: 'twitter-login-icon',
-            icon: <FaTwitter className='text-white text-2xl md:text-[8em]' />
+            icon: <FaTwitter className='text-white text-6xl md:text-[8em]' />
         },
         {
             id: 25,
