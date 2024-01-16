@@ -59,7 +59,7 @@ export default function TrendingSideBar() {
                     <li>
                         <div className='w-full'>
                             {data.map(item => (
-                                <Link key={item.position} className='flex justify-between items-center w-full py-4 px-4  md:py-[0.8em]'>
+                                <Link to={`trending/${item.name}`} key={item.position} className='flex justify-between items-center w-full py-4 px-4  md:py-[0.8em]'>
                                     <span className='font-bold text-sm  md:text-md'>{item.name}</span>
                                     <span className='flex gap-1 items-center'>
                                         <Icon icon="hash-icon" />

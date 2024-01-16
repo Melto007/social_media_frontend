@@ -5,7 +5,7 @@ export default function DividerComponent(props) {
 
     return (
         <>
-            <Divider className="my-4 bg-gray-700" orientation={position}/>
+            <Divider className="my-4 bg-gray-700" orientation={position} />
         </>
     )
 }
