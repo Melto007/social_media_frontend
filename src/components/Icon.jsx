@@ -11,7 +11,9 @@ import {
     FaRegHeart,
     FaRegComment,
     FaUser,
-    FaFacebookF
+    FaFacebookF,
+    FaEye,
+    FaEyeSlash
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
@@ -171,7 +173,17 @@ export default function Icon(props) {
             id: 26,
             name: 'facebook-icon',
             icon: <FaFacebookF className='text-blue-700 text-[1.4rem] md:text-[2em]' />
-        }
+        },
+        {
+            id: 27,
+            name: 'eye-icon',
+            icon: <FaEye className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 28,
+            name: 'eye-slash-icon',
+            icon: <FaEyeSlash className='text-white text-md md:text-1xl' />
+        },
     ]
 
     return (

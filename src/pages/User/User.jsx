@@ -1,10 +1,18 @@
+import { useState } from 'react'
 import ButtonComponent from "../../components/ButtonComponent";
 import Container from "../../components/Container";
-import DividerComponent from "../../components/DividerComponent";
 import Icon from "../../components/Icon";
-import { Divider } from "@nextui-org/react"
+import {
+    useDisclosure,
+} from "@nextui-org/react"
+import ModalComponent from '../../components/ModalComponent';
+import SignUpForm from './SignUpForm';
 
 export default function User() {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+    const [ isVisible, setIsVisible ] = useState(false)
+    const [ isVisibleInput, setIsVisibleInput ] = useState(false)
+
     return (
         <>
             <Container>
@@ -27,7 +35,7 @@ export default function User() {
                                     <span>or</span>
                                 </div>
                                 <div className="text-center my-5">
-                                    <ButtonComponent name="Create account" className="font-bold w-full" radius="full" />
+                                    <ButtonComponent name="Create account" className="font-bold w-full" radius="full" onPress={onOpen} />
                                     <p className="text-xs my-2 md:text-[0.8rem]">By signing up, you agree to the <span className="text-blue-400">Terms of Service</span> and <span className="text-blue-400">Privacy Policy</span>, including <span className="text-blue-400">Cookie Use</span>.</p>
                                 </div>
                                 <div className="my-5">
@@ -39,6 +47,20 @@ export default function User() {
                     </div>
                 </div>
             </Container>
+
+            <ModalComponent
+                onOpenChange={onOpenChange}
+                isOpen={isOpen}
+                name="Sign Up"
+                forms={
+                    <SignUpForm
+                        isVisible={isVisible}
+                        setIsVisible={setIsVisible}
+                        isVisibleInput={isVisibleInput}
+                        setIsVisibleInput={setIsVisibleInput}
+                    />
+                }
+            />
         </>
     )
 }
