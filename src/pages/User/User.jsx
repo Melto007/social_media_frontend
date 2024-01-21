@@ -7,11 +7,23 @@ import {
 } from "@nextui-org/react"
 import ModalComponent from '../../components/ModalComponent';
 import SignUpForm from './SignUpForm';
+import SignInForm from './SignInForm';
 
 export default function User() {
+    const [ buttonContent, setButtonContent ] = useState(null)
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
-    const [ isVisible, setIsVisible ] = useState(false)
-    const [ isVisibleInput, setIsVisibleInput ] = useState(false)
+
+    const SignUp = <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" />
+    const SignIn = <ButtonComponent name="Sign In" className="w-full rounded-full bg-white text-black font-bold" />
+
+    function handleClick(e) {
+        const content = e.target.textContent
+
+        if(content !== '' && content !== null) {
+            onOpen()
+            setButtonContent(content)
+        }
+    }
 
     return (
         <>
@@ -35,12 +47,12 @@ export default function User() {
                                     <span>or</span>
                                 </div>
                                 <div className="text-center my-5">
-                                    <ButtonComponent name="Create account" className="font-bold w-full" radius="full" onPress={onOpen} />
+                                    <ButtonComponent name="Create account" className="font-bold w-full" radius="full" onClick={handleClick} />
                                     <p className="text-xs my-2 md:text-[0.8rem]">By signing up, you agree to the <span className="text-blue-400">Terms of Service</span> and <span className="text-blue-400">Privacy Policy</span>, including <span className="text-blue-400">Cookie Use</span>.</p>
                                 </div>
                                 <div className="my-5">
                                     <p className="font-bold md:text-[1em]">Already have an account?</p>
-                                    <ButtonComponent name="Sign in" className="font-bold border-solid border-1 border-gray-600 w-full my-2" variant="bordered" radius="full" />
+                                    <ButtonComponent name="Sign in" className="font-bold border-solid border-1 border-gray-600 w-full my-2" variant="bordered" radius="full" onClick={handleClick} />
                                 </div>
                             </div>
                         </div>
@@ -51,15 +63,9 @@ export default function User() {
             <ModalComponent
                 onOpenChange={onOpenChange}
                 isOpen={isOpen}
-                name="Sign Up"
-                forms={
-                    <SignUpForm
-                        isVisible={isVisible}
-                        setIsVisible={setIsVisible}
-                        isVisibleInput={isVisibleInput}
-                        setIsVisibleInput={setIsVisibleInput}
-                    />
-                }
+                name={buttonContent === 'Create account' ? 'Sign Up' : 'Sign In'}
+                button={buttonContent === 'Create account' ? SignUp : SignIn}
+                forms={buttonContent === 'Create account' ? <SignUpForm /> : <SignInForm />}
             />
         </>
     )

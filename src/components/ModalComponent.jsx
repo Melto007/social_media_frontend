@@ -5,10 +5,9 @@ import {
     ModalHeader,
     ModalFooter
 } from "@nextui-org/react"
-import ButtonComponent from "./ButtonComponent"
 
 export default function ModalComponent(props) {
-    const { isOpen, onOpenChange, forms, name } = props
+    const { isOpen, onOpenChange, forms, name, button } = props
 
     return (
         <>
@@ -19,7 +18,7 @@ export default function ModalComponent(props) {
                         {forms}
                     </ModalBody>
                     <ModalFooter>
-                        <ButtonComponent name="Sign up" className="w-full rounded-full bg-white text-black font-bold" />
+                        {button}
                     </ModalFooter>
                 </ModalContent>
             </Modal>

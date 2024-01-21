@@ -2,20 +2,11 @@ import { useState } from 'react'
 import { Input } from '@nextui-org/react'
 import Icon from '../../components/Icon'
 
-export default function SignUpForm() {
+export default function SignInForm() {
     const [ isVisible, setIsVisible ] = useState(false)
-    const [ isVisibleInput, setIsVisibleInput ] = useState(false)
 
     return (
         <form>
-            <div className='mb-4'>
-                <Input
-                    label="Username"
-                    variant='bordered'
-                    placeholder='Enter the username'
-                    type="text"
-                />
-            </div>
             <div className='mb-4'>
                 <Input
                     label="Email"
@@ -39,23 +30,6 @@ export default function SignUpForm() {
                         </button>
                     }
                     type={isVisible ? "text" : "password"}
-                />
-            </div>
-            <div>
-                <Input
-                    label="Confirm Password"
-                    variant="bordered"
-                    placeholder="Enter the confirm password"
-                    endContent={
-                        <button className="focus:outline-none" type="button" onClick={() => setIsVisibleInput(!isVisibleInput)}>
-                            {isVisibleInput ? (
-                                <Icon icon="eye-icon" />
-                            ) : (
-                                <Icon icon="eye-slash-icon" />
-                            )}
-                        </button>
-                    }
-                    type={isVisibleInput ? "text" : "password"}
                 />
             </div>
         </form>
