@@ -1,9 +1,16 @@
 import { useState } from 'react'
 import { Input } from '@nextui-org/react'
 import Icon from '../../components/Icon'
+import ButtonComponent from '../../components/ButtonComponent'
 
-export default function SignInForm() {
+export default function SignInForm(props) {
     const [ isVisible, setIsVisible ] = useState(false)
+
+    const { button } = props
+
+    function onSubmitHandler() {
+        console.log("sign in form")
+    }
 
     return (
         <form>
@@ -31,6 +38,9 @@ export default function SignInForm() {
                     }
                     type={isVisible ? "text" : "password"}
                 />
+            </div>
+            <div className="mt-4">
+                <ButtonComponent name={button === 'Create account' ? "Sign Up" : "Sign In"} className="w-full rounded-full bg-white text-black font-bold" onClick={onSubmitHandler} />
             </div>
         </form>
     )

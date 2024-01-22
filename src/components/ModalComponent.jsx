@@ -7,7 +7,11 @@ import {
 } from "@nextui-org/react"
 
 export default function ModalComponent(props) {
-    const { isOpen, onOpenChange, forms, name, button } = props
+    const { isOpen, onOpenChange, forms, name } = props
+
+    function onSubmitHandler() {
+        console.log("success")
+    }
 
     return (
         <>
@@ -17,9 +21,6 @@ export default function ModalComponent(props) {
                     <ModalBody>
                         {forms}
                     </ModalBody>
-                    <ModalFooter>
-                        {button}
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

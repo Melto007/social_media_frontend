@@ -13,9 +13,6 @@ export default function User() {
     const [ buttonContent, setButtonContent ] = useState(null)
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-    const SignUp = <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" />
-    const SignIn = <ButtonComponent name="Sign In" className="w-full rounded-full bg-white text-black font-bold" />
-
     function handleClick(e) {
         const content = e.target.textContent
 
@@ -64,8 +61,7 @@ export default function User() {
                 onOpenChange={onOpenChange}
                 isOpen={isOpen}
                 name={buttonContent === 'Create account' ? 'Sign Up' : 'Sign In'}
-                button={buttonContent === 'Create account' ? SignUp : SignIn}
-                forms={buttonContent === 'Create account' ? <SignUpForm /> : <SignInForm />}
+                forms={buttonContent === 'Create account' ? <SignUpForm button={buttonContent} /> : <SignInForm button={buttonContent} />}
             />
         </>
     )
