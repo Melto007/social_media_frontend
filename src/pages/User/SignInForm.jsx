@@ -40,7 +40,7 @@ export default function SignInForm(props) {
                 />
             </div>
             <div className="mt-4">
-                <ButtonComponent name={button === 'Create account' ? "Sign Up" : "Sign In"} className="w-full rounded-full bg-white text-black font-bold" onClick={onSubmitHandler} />
+                <ButtonComponent name="Sign In" className="w-full rounded-full bg-white text-black font-bold" onClick={onSubmitHandler} />
             </div>
         </form>
     )

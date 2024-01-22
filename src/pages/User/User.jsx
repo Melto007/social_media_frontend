@@ -61,7 +61,7 @@ export default function User() {
                 onOpenChange={onOpenChange}
                 isOpen={isOpen}
                 name={buttonContent === 'Create account' ? 'Sign Up' : 'Sign In'}
-                forms={buttonContent === 'Create account' ? <SignUpForm button={buttonContent} /> : <SignInForm button={buttonContent} />}
+                forms={buttonContent === 'Create account' ? <SignUpForm /> : <SignInForm />}
             />
         </>
     )

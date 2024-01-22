@@ -11,6 +11,7 @@ import MessagePage from './pages/Message/MessagePage';
 import ListsPage from './pages/Lists/ListsPage';
 import Profile from './pages/Profile/Profile';
 import User from './pages/User/User';
+import ContextProvider from './context/ContextAPI';
 
 const router = createBrowserRouter([
   {
@@ -43,9 +44,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <NextUIProvider>
-      <RouterProvider router={router} />
-    </NextUIProvider>
+    <ContextProvider>
+      <NextUIProvider>
+        <RouterProvider router={router} />
+      </NextUIProvider>
+    </ContextProvider>
   )
 }
 
