@@ -39,19 +39,22 @@ export function loginReducer(state = { user: [] }, action) {
             return {
                 loading: true,
                 user: [],
-                isError: null
+                isError: null,
+                success: false
             }
         case LOGIN_ITEM_CONSTANTS:
             return {
                 loading: false,
                 user: action.payload,
                 isError: null,
+                success: true
             }
         case LOGIN_ERROR_CONSTANTS:
             return {
                 loading: false,
                 user: [],
-                isError: action.payload
+                isError: action.payload,
+                success: false
             }
         default:
             return state
