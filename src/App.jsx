@@ -11,7 +11,10 @@ import MessagePage from './pages/Message/MessagePage';
 import ListsPage from './pages/Lists/ListsPage';
 import Profile from './pages/Profile/Profile';
 import User from './pages/User/User';
-import ContextProvider from './context/ContextAPI';
+// import ContextProvider from './context/ContextAPI';
+
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 const router = createBrowserRouter([
   {
@@ -44,11 +47,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ContextProvider>
+    <Provider store={store}>
       <NextUIProvider>
         <RouterProvider router={router} />
       </NextUIProvider>
-    </ContextProvider>
+    </Provider>
   )
 }
 

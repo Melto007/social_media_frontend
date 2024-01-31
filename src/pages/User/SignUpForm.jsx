@@ -4,15 +4,30 @@ import Icon from '../../components/Icon'
 import ButtonComponent from '../../components/ButtonComponent'
 import { useForm } from 'react-hook-form'
 
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+    registerAction
+} from '../../actions/registerAction'
+
 export default function SignUpForm(props) {
     const { handleSubmit, register, formState: { errors } } = useForm()
     const [ isVisible, setIsVisible ] = useState(false)
     const [ isVisibleInput, setIsVisibleInput ] = useState(false)
 
-    const { button } = props
+    const dispatch = useDispatch()
+
+    const registerReducer = useSelector(state => state.register)
+    const { loading, isError, user } = registerReducer
 
     function onSubmitHandler(data) {
-        console.log(data)
+        dispatch(registerAction(data))
+    }
+
+    let button = <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
+
+    if(loading) {
+        button = <ButtonComponent name="Sign Up" isLoading className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
     }
 
     return (
@@ -23,7 +38,7 @@ export default function SignUpForm(props) {
                     variant='bordered'
                     placeholder='Enter the username'
                     type="text"
-                    {...register("username", {
+                    {...register("name", {
                         required: "Username is required",
                         maxLength: 12
                     })}
@@ -84,11 +99,15 @@ export default function SignUpForm(props) {
                         </button>
                     }
                     type={isVisibleInput ? "text" : "password"}
-                    {...register("confirmpassword", { required: true })}
+                    {...register("confirm_password", { required: true })}
                 />
             </div>
             <div className="mt-4">
-                <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
+                {button}
+            </div>
+            <div className='mx-2 my-2 text-red-500'>
+                <span className='text-sm'>{user && user}</span>
+                <span className='text-sm'>{isError && isError}</span>
             </div>
         </form>
     )
