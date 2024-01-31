@@ -2,11 +2,13 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import { thunk } from 'redux-thunk'
 
 import {
-    registerReducer
+    registerReducer,
+    loginReducer
 } from '../reducers/registerReducers'
 
 const reducer = combineReducers({
-    register: registerReducer
+    register: registerReducer,
+    login: loginReducer
 })
 
 const middleware = [thunk]
