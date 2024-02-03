@@ -5,7 +5,7 @@ import ButtonComponent from '../../components/ButtonComponent'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../actions/registerAction'
-import { Navigate } from 'react-router-dom'
+import { Navigate, redirect } from 'react-router-dom'
 
 export default function SignInForm(props) {
     const { handleSubmit, register, formState: { errors } } = useForm()
@@ -28,8 +28,6 @@ export default function SignInForm(props) {
     if(success) {
         return <Navigate to='home' />
     }
-
-
 
     return (
         <form>

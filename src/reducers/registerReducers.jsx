@@ -5,7 +5,11 @@ import {
 
     LOGIN_ERROR_CONSTANTS,
     LOGIN_ITEM_CONSTANTS,
-    LOGIN_LOADING_CONSTANTS
+    LOGIN_LOADING_CONSTANTS,
+
+    USER_ITEM_CONSTANTS,
+    USER_LOADING_CONSTANTS,
+    USER_ERROR_CONSTANTS
 } from '../constants/registerConstant'
 
 export function registerReducer(state = { user: [] }, action) {
@@ -55,6 +59,34 @@ export function loginReducer(state = { user: [] }, action) {
                 user: [],
                 isError: action.payload,
                 success: false
+            }
+        default:
+            return state
+    }
+}
+
+export function userReducer(state = { user: [] }, action) {
+    switch(action.type) {
+        case USER_LOADING_CONSTANTS:
+            return {
+                loading: true,
+                success: false,
+                isError: null,
+                user: []
+            }
+        case USER_ITEM_CONSTANTS:
+            return {
+                loading: false,
+                success: true,
+                isError: null,
+                user: action.payload
+            }
+        case USER_ERROR_CONSTANTS:
+            return {
+                loading: false,
+                success: false,
+                isError: action.payload,
+                user: []
             }
         default:
             return state

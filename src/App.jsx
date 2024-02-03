@@ -11,21 +11,22 @@ import MessagePage from './pages/Message/MessagePage';
 import ListsPage from './pages/Lists/ListsPage';
 import Profile from './pages/Profile/Profile';
 import User from './pages/User/User';
-// import ContextProvider from './context/ContextAPI';
 
 import { Provider } from 'react-redux'
 import store from './store/store'
+import { checkAuthLoader } from './pages/User/auth'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <User />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
   },
   {
     path: 'home',
     element: <MenuNav />,
     errorElement: <ErrorPage />,
+    loader: checkAuthLoader,
     children: [
       { path: '', element: <HomePage /> },
       {

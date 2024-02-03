@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AvatarComponent from "../../components/AvatarComponent";
 import {
     NavbarMenuToggle,
@@ -15,10 +15,23 @@ import Links from '../../components/Links';
 import ButtonComponent from '../../components/ButtonComponent'
 import DividerComponent from '../../components/DividerComponent';
 import TrendingSideBar from './TrendingSideBar';
+import { useDispatch, useSelector } from 'react-redux'
+import { userAction } from '../../actions/registerAction'
 
 export default function MenuNav() {
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
     const  [ isTrendingMenu, setIsTrendingMenu ] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const userReducer = useSelector(state => state.userReducer)
+    const { loading, success, isError, user } = userReducer
+
+    useEffect(() => {
+        (async () => {
+            dispatch(userAction())
+        })()
+    }, [])
 
     return (
         <>
@@ -32,9 +45,8 @@ export default function MenuNav() {
                                 <div className='row-span-1 px-6 py-4'>
                                     <UserComponent
                                         file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                        username="@jrgarciadev"
-                                        firstname="Junior"
-                                        lastname="Garcia"
+                                        username={`@${isError ? isError : user.name}`}
+                                        email={isError ? isError : user.email}
                                     />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
@@ -115,9 +127,8 @@ export default function MenuNav() {
                             <div className='px-5 py-2'>
                                 <UserComponent
                                     file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                    username="@jrgarciadev"
-                                    firstname="Junior"
-                                    lastname="Garcia"
+                                    username={`@${isError ? isError : user.name}`}
+                                    email={isError ? isError : user.email}
                                 />
                                 <div className='flex justify-between items-center text-sm'>
                                     <Links path='/' name="234 Followers"/>

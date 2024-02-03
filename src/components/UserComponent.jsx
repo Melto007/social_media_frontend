@@ -2,14 +2,14 @@ import { User } from "@nextui-org/react"
 import { Link } from 'react-router-dom'
 
 export default function UserComponent(props) {
-    const { firstname, lastname, username, file } = props
+    const { email, username, file } = props
     return (
         <>
             <User
-                name={firstname + ' '+ lastname}
+                name={username}
                 description={(
                     <Link to="/">
-                        {username}
+                        {email}
                     </Link>
                 )}
                 avatarProps={{
