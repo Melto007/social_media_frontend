@@ -9,7 +9,7 @@ import {
 
     USER_ITEM_CONSTANTS,
     USER_LOADING_CONSTANTS,
-    USER_ERROR_CONSTANTS
+    USER_ERROR_CONSTANTS,
 } from '../constants/registerConstant'
 
 export function registerReducer(state = { user: [] }, action) {

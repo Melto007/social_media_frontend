@@ -18,7 +18,7 @@ import { checkAuthLoader } from './pages/User/auth'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <User />,
     errorElement: <ErrorPage />,
   },
@@ -26,7 +26,6 @@ const router = createBrowserRouter([
     path: 'home',
     element: <MenuNav />,
     errorElement: <ErrorPage />,
-    loader: checkAuthLoader,
     children: [
       { path: '', element: <HomePage /> },
       {

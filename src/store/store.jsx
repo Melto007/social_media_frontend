@@ -10,7 +10,7 @@ import {
 const reducer = combineReducers({
     register: registerReducer,
     login: loginReducer,
-    userReducer: userReducer
+    userReducer: userReducer,
 })
 
 const middleware = [thunk]

@@ -25,7 +25,7 @@ export default function MenuNav() {
     const dispatch = useDispatch()
 
     const userReducer = useSelector(state => state.userReducer)
-    const { loading, success, isError, user } = userReducer
+    const { isError, user } = userReducer
 
     useEffect(() => {
         (async () => {

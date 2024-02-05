@@ -25,7 +25,7 @@ export default function User() {
     return (
         <>
             <Container>
-                <div className="bg-neutral-900 h-[100vh]">
+                <div>
                     <div className="px-4 py-2">
                         <div className="grid md:grid-cols-2">
                             <div className=" m-auto p-auto">
