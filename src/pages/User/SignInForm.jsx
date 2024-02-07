@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../actions/registerAction'
 import { Navigate, redirect } from 'react-router-dom'
+import Links from '../../components/Links'
 
 export default function SignInForm(props) {
     const { handleSubmit, register, formState: { errors } } = useForm()
@@ -70,6 +71,9 @@ export default function SignInForm(props) {
                         required: true
                     })}
                 />
+            </div>
+            <div className='mb-4'>
+                <Links path="forgotpassword" name="forgot password" className="text-blue-500" />
             </div>
             <div className='mx-2 my-2 text-red-500'>
                 {errors.password?.message && <span className='text-sm'>{errors.password?.message}</span>}

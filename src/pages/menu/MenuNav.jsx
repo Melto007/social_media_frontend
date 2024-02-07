@@ -59,8 +59,11 @@ export default function MenuNav() {
                                     <li className='border-solid border-b-2 border-gray-800'></li>
                                 </ul>
                                 <div className='flex flex-col gap-2 row-span-1 px-4 py-2'>
-                                    <ButtonComponent name="Sign In" startContent={<Icon icon="signin-icon" />} />
-                                    <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />
+                                    {user.name ? (
+                                        <ButtonComponent name="Logout" startContent={<Icon icon="signin-icon" />} />
+                                    ) : (
+                                        <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />
+                                    )}
                                 </div>
                             </div>
                         </div>

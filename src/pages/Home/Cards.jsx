@@ -8,7 +8,6 @@ import {
 import DropDown from './DropDown'
 import UserComponent from '../../components/UserComponent'
 import ButtonComponent from '../../components/ButtonComponent'
-import DividerComponent from '../../components/DividerComponent'
 import Icon from '../../components/Icon'
 import Paragraph from '../../components/Paragraph'
 
@@ -44,9 +43,8 @@ export default function Cards(props) {
                     <CardHeader className='text-white justify-between'>
                         <div>
                             <UserComponent
-                                firstname="john"
-                                lastname="doe"
-                                username="01-03-2023 11-03-08"
+                                username="john"
+                                email="01-03-2023 11-03-08"
                                 file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
                             />
                         </div>

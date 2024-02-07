@@ -12,7 +12,8 @@ import {
     USER_ERROR_CONSTANTS
 } from '../constants/registerConstant'
 import { setToken } from '../pages/User/auth'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../interceptors/axios'
 
 export function registerAction(data) {
     return async function(dispatch) {
