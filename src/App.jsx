@@ -15,12 +15,24 @@ import User from './pages/User/User';
 import { Provider } from 'react-redux'
 import store from './store/store'
 import { checkAuthLoader } from './pages/User/auth'
+import ForgotPassword from './pages/User/ForgotPassword';
+import ResetPassword from './pages/User/ResetPassword';
 
 const router = createBrowserRouter([
   {
     path: '',
     element: <User />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'forgotpassword',
+    element: <ForgotPassword />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: 'resetpassword',
+    element: <ResetPassword />,
+    errorElement: <ErrorPage />
   },
   {
     path: 'home',
@@ -40,7 +52,7 @@ const router = createBrowserRouter([
       { path: 'monetisation', element: <MonetisationPage /> },
       { path: 'message', element: <MessagePage /> },
       { path: 'lists', element: <ListsPage /> },
-      { path: 'profile', element: <Profile /> }
+      { path: 'profile', element: <Profile /> },
     ]
   }
 ])
