@@ -10,6 +10,14 @@ import {
     USER_ITEM_CONSTANTS,
     USER_LOADING_CONSTANTS,
     USER_ERROR_CONSTANTS,
+
+    FORGOT_PASSWORD_CONTANTS,
+    FORGOT_PASSWORD_LOADING_CONSTANTS,
+    FORGOT_PASSWORD_ERROR_CONSTANTS,
+
+    RESET_PASSWORD_ERROR_CONSTANTS,
+    RESET_PASSWORD_LOADING_CONSTANTS,
+    RESET_PASSWORD_SUCCESS_CONSTANTS
 } from '../constants/registerConstant'
 
 export function registerReducer(state = { user: [] }, action) {
@@ -87,6 +95,62 @@ export function userReducer(state = { user: [] }, action) {
                 success: false,
                 isError: action.payload,
                 user: []
+            }
+        default:
+            return state
+    }
+}
+
+export function forgotpasswordReducer(state = { forgotpassword: [] }, action) {
+    switch(action.type) {
+        case FORGOT_PASSWORD_LOADING_CONSTANTS:
+            return {
+                forgotLoading: true,
+                forgotSuccess: false,
+                forgotEmail: [],
+                forgotError: null
+            }
+        case FORGOT_PASSWORD_CONTANTS:
+            return {
+                forgotLoading: false,
+                forgotSuccess: true,
+                forgotEmail: action.payload,
+                forgotError: null
+            }
+        case FORGOT_PASSWORD_ERROR_CONSTANTS:
+            return {
+                forgotLoading: true,
+                forgotSuccess: false,
+                forgotEmail: [],
+                forgotError: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export function resetPasswordReducer(state = { resetpassword: [] }, action) {
+    switch(action.type) {
+        case RESET_PASSWORD_LOADING_CONSTANTS:
+            return {
+                resetLoading: true,
+                resetSuccess: false,
+                resetArray: [],
+                resetError: null
+            }
+        case RESET_PASSWORD_SUCCESS_CONSTANTS:
+            return {
+                resetLoading: false,
+                resetSuccess: true,
+                resetArray: action.payload,
+                resetError: null
+            }
+        case RESET_PASSWORD_ERROR_CONSTANTS:
+            return {
+                resetLoading: false,
+                resetSuccess: false,
+                resetArray: [],
+                resetError: action.payload
             }
         default:
             return state

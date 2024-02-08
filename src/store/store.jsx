@@ -4,13 +4,15 @@ import { thunk } from 'redux-thunk'
 import {
     registerReducer,
     loginReducer,
-    userReducer
+    userReducer,
+    forgotpasswordReducer
 } from '../reducers/registerReducers'
 
 const reducer = combineReducers({
     register: registerReducer,
     login: loginReducer,
     userReducer: userReducer,
+    forgotpasswordReducer: forgotpasswordReducer
 })
 
 const middleware = [thunk]

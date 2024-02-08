@@ -9,7 +9,15 @@ import {
 
     USER_ITEM_CONSTANTS,
     USER_LOADING_CONSTANTS,
-    USER_ERROR_CONSTANTS
+    USER_ERROR_CONSTANTS,
+
+    FORGOT_PASSWORD_CONTANTS,
+    FORGOT_PASSWORD_LOADING_CONSTANTS,
+    FORGOT_PASSWORD_ERROR_CONSTANTS,
+
+    RESET_PASSWORD_ERROR_CONSTANTS,
+    RESET_PASSWORD_LOADING_CONSTANTS,
+    RESET_PASSWORD_SUCCESS_CONSTANTS
 } from '../constants/registerConstant'
 import { setToken } from '../pages/User/auth'
 // import axios from 'axios'
@@ -116,6 +124,62 @@ export function userAction() {
         } catch(error) {
             dispatch({
                 type: USER_ERROR_CONSTANTS,
+                payload: error.response && error.response.data.message
+            })
+        }
+    }
+}
+
+export function forgotpasswordAction(data) {
+    return async function(dispatch) {
+        try {
+            dispatch({
+                type: FORGOT_PASSWORD_LOADING_CONSTANTS
+            })
+
+            await axios.post(
+                'reset/',
+                data
+            ).then(({ data, status }) => {
+                if(status === 201) {
+                    dispatch({
+                        type: FORGOT_PASSWORD_CONTANTS,
+                        payload: data
+                    })
+                }
+            }).catch((error) => {
+                dispatch({
+                    type: FORGOT_PASSWORD_ERROR_CONSTANTS,
+                    payload: error.response && error.response.data.message
+                })
+            })
+        } catch(error) {
+            dispatch({
+                type: FORGOT_PASSWORD_ERROR_CONSTANTS,
+                payload: error.response && error.response.data.message
+            })
+        }
+    }
+}
+
+export function resetPasswordAction(data) {
+    return async function(dispatch) {
+        try {
+            dispatch({
+                type: RESET_PASSWORD_LOADING_CONSTANTS
+            })
+
+            await axios.post(
+                'reset',
+                data
+            ).then(({ data, status }) => {
+                console.log(data, status)
+            }).catch((error) => {
+                console.log(error.response)
+            })
+        } catch(error) {
+            dispatch({
+                type: RESET_PASSWORD_ERROR_CONSTANTS,
                 payload: error.response && error.response.data.message
             })
         }

@@ -10,14 +10,24 @@ import Icon from "../../components/Icon"
 import ButtonComponent from "../../components/ButtonComponent"
 import { useForm } from 'react-hook-form'
 import Heading1 from "../../components/Heading1"
-import { Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { forgotpasswordAction } from '../../actions/registerAction'
 
 export default function ForgotPassword() {
     const { handleSubmit, register, formState: { errors } } = useForm()
 
-    function onSubmitHandler() {
-        console.log("submit")
-        return <Navigate to='reset-password' />
+    const dispatch = useDispatch()
+    const forgotpasswordReducer = useSelector(state => state.forgotpasswordReducer)
+    const { forgotLoading, forgotSuccess, forgotEmail, forgotError } = forgotpasswordReducer
+
+    function onSubmitHandler(data) {
+        dispatch(forgotpasswordAction(data))
+    }
+
+    let buttons = <ButtonComponent name="submit" className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
+
+    if(forgotLoading) {
+        buttons = <ButtonComponent name="submit" isLoading className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
     }
 
     return (
@@ -54,8 +64,15 @@ export default function ForgotPassword() {
                                     </div>
                                 </CardBody>
                                 <CardFooter>
-                                    <ButtonComponent name="submit" className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
+                                    {buttons}
                                 </CardFooter>
+                                <div className='text-center'>
+                                    {forgotSuccess ?
+                                        <span className='text-sm text-green-500'>{forgotEmail.message}</span>
+                                    :
+                                        <span className='text-sm text-red-500'>{forgotError}</span>
+                                    }
+                                </div>
                             </Card>
                         </form>
                     </div>
