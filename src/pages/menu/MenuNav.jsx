@@ -33,6 +33,10 @@ export default function MenuNav() {
         })()
     }, [])
 
+    function onLogoutHandler() {
+        console.log("logout....")
+    }
+
     return (
         <>
             <Container>
@@ -60,7 +64,7 @@ export default function MenuNav() {
                                 </ul>
                                 <div className='flex flex-col gap-2 row-span-1 px-4 py-2'>
                                     {user.name ? (
-                                        <ButtonComponent name="Logout" startContent={<Icon icon="signin-icon" />} />
+                                        <ButtonComponent onClick={onLogoutHandler} name="Logout" startContent={<Icon icon="signin-icon" />} />
                                     ) : (
                                         <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />
                                     )}
