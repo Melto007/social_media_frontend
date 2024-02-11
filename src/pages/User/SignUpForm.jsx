@@ -6,9 +6,7 @@ import { useForm } from 'react-hook-form'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import {
-    registerAction
-} from '../../actions/registerAction'
+import { userRegister } from '../../features/userSlice'
 
 export default function SignUpForm(props) {
     const { handleSubmit, register, formState: { errors } } = useForm()
@@ -17,17 +15,21 @@ export default function SignUpForm(props) {
 
     const dispatch = useDispatch()
 
-    const registerReducer = useSelector(state => state.register)
-    const { loading, isError, user } = registerReducer
+    const userSlice = useSelector(state => state.userSlice)
+    const { userLoading, userSuccess, users, userError } = userSlice
 
     function onSubmitHandler(data) {
-        dispatch(registerAction(data))
+        dispatch(userRegister(data))
     }
 
     let button = <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
 
-    if(loading) {
+    if(userLoading) {
         button = <ButtonComponent name="Sign Up" isLoading className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
+    }
+
+    if(userSuccess) {
+        console.log("success", userError, users[0], userSuccess)
     }
 
     return (
@@ -105,9 +107,9 @@ export default function SignUpForm(props) {
             <div className="mt-4">
                 {button}
             </div>
-            <div className='mx-2 my-2 text-red-500'>
-                <span className='text-sm'>{user && user}</span>
-                <span className='text-sm'>{isError && isError}</span>
+            <div className='mx-2 my-2'>
+                <span className='text-sm text-green-500'>{userSuccess && users[0]}</span>
+                <span className='text-sm text-red-500'>{userError && userError[0]}</span>
             </div>
         </form>
     )

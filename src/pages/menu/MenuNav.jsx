@@ -17,6 +17,8 @@ import DividerComponent from '../../components/DividerComponent';
 import TrendingSideBar from './TrendingSideBar';
 import { useDispatch, useSelector } from 'react-redux'
 import { userAction } from '../../actions/registerAction'
+import { logoutUser } from '../../features/userSlice'
+import { Navigate } from 'react-router-dom'
 
 export default function MenuNav() {
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
@@ -27,6 +29,9 @@ export default function MenuNav() {
     const userReducer = useSelector(state => state.userReducer)
     const { isError, user } = userReducer
 
+    const userSlice = useSelector(state => state.userSlice)
+    const { userSuccess } = userSlice
+
     useEffect(() => {
         (async () => {
             dispatch(userAction())
@@ -34,7 +39,11 @@ export default function MenuNav() {
     }, [])
 
     function onLogoutHandler() {
-        console.log("logout....")
+        dispatch(logoutUser())
+    }
+
+    if(userSuccess) {
+        return <Navigate to='/' />
     }
 
     return (
