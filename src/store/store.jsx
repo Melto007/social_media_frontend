@@ -5,14 +5,16 @@ import {
     registerReducer,
     loginReducer,
     userReducer,
-    forgotpasswordReducer
+    forgotpasswordReducer,
+    resetPasswordReducer
 } from '../reducers/registerReducers'
 
 const reducer = combineReducers({
     register: registerReducer,
     login: loginReducer,
     userReducer: userReducer,
-    forgotpasswordReducer: forgotpasswordReducer
+    forgotpasswordReducer: forgotpasswordReducer,
+    resetPasswordReducer: resetPasswordReducer
 })
 
 const middleware = [thunk]

@@ -30,9 +30,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: 'resetpassword/:pk',
+    path: 'resetpassword',
     element: <ResetPassword />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: ':pk',
+        element: <ResetPassword />
+      }
+    ]
   },
   {
     path: 'home',

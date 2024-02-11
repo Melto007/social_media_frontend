@@ -162,22 +162,32 @@ export function forgotpasswordAction(data) {
     }
 }
 
-export function resetPasswordAction(data) {
+export function resetPasswordAction(datas, params) {
     return async function(dispatch) {
-        try {
-            dispatch({
-                type: RESET_PASSWORD_LOADING_CONSTANTS
-            })
+        dispatch({
+            type: RESET_PASSWORD_LOADING_CONSTANTS
+        })
 
-            await axios.post(
-                'reset',
-                data
-            ).then(({ data, status }) => {
-                console.log(data, status)
-            }).catch((error) => {
-                console.log(error.response)
-            })
-        } catch(error) {
+        try {
+            const { data } = await axios.put(
+                'change-password/' + params.pk + '/',
+                datas
+            )
+
+            if(data.status === 200) {
+                dispatch({
+                    type: RESET_PASSWORD_SUCCESS_CONSTANTS,
+                    payload: data
+                })
+            }
+
+            if(data.status === 404) {
+                dispatch({
+                    type: RESET_PASSWORD_ERROR_CONSTANTS,
+                    payload: data.message
+                })
+            }
+        }catch(error) {
             dispatch({
                 type: RESET_PASSWORD_ERROR_CONSTANTS,
                 payload: error.response && error.response.data.message
