@@ -14,8 +14,12 @@ const instance = axios.create({
     withCredentials: true
 });
 
+let refresh = false
+
 instance.interceptors.response.use(response => response, async error => {
-    if(error.response.status === 403) {
+    if(error.response.status === 403 && !refresh) {
+        refresh = true
+
         const response = await instance.post(
             'refresh/',
             {},
@@ -28,6 +32,7 @@ instance.interceptors.response.use(response => response, async error => {
             return instance(error.config)
         }
     }
+    refresh = false
     return error
 })
 

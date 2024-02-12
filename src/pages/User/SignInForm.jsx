@@ -4,29 +4,30 @@ import Icon from '../../components/Icon'
 import ButtonComponent from '../../components/ButtonComponent'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginAction } from '../../actions/registerAction'
 import { Navigate } from 'react-router-dom'
 import Links from '../../components/Links'
+import { userLogin } from '../../features/userSlice'
 
 export default function SignInForm(props) {
     const { handleSubmit, register, formState: { errors } } = useForm()
     const [ isVisible, setIsVisible ] = useState(false)
 
     const dispatch = useDispatch()
-    const loginReducer = useSelector(state => state.login)
-    const { user, loading, isError, success } = loginReducer
+
+    const userSlice = useSelector(state => state.userSlice)
+    const { userSuccess, users, userError, userLoading, isAuthenticated } = userSlice
 
     function onSubmitHandler(data) {
-        dispatch(loginAction(data))
+        dispatch(userLogin(data))
     }
 
     let buttons = <ButtonComponent name="Sign In" className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
 
-    if(loading) {
+    if(userLoading) {
         buttons = <ButtonComponent name="Sign In" isLoading className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
     }
 
-    if(success) {
+    if(userSuccess && isAuthenticated) {
         return <Navigate to='home' />
     }
 
@@ -81,9 +82,9 @@ export default function SignInForm(props) {
             <div className="mt-4">
                 {buttons}
             </div>
-            <div className='mx-2 my-2 text-red-500'>
-                {user.success && <span className='text-sm'>{user.success}</span>}
-                {isError && <span className='text-sm'>{isError}</span>}
+            <div className='mx-2 my-2'>
+                {userSuccess && <span className='text-sm text-green-500'>{users[0].success}</span>}
+                {userError && <span className='text-sm text-red-500'>{userError.message}</span>}
             </div>
         </form>
     )

@@ -30,7 +30,7 @@ export default function MenuNav() {
     const { isError, user } = userReducer
 
     const userSlice = useSelector(state => state.userSlice)
-    const { userSuccess } = userSlice
+    const { isAuthenticated } = userSlice
 
     useEffect(() => {
         (async () => {
@@ -42,7 +42,7 @@ export default function MenuNav() {
         dispatch(logoutUser())
     }
 
-    if(userSuccess) {
+    if(!isAuthenticated) {
         return <Navigate to='/' />
     }
 

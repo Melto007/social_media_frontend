@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from '../../features/userSlice'
 
 export default function SignUpForm(props) {
-    const { handleSubmit, register, formState: { errors } } = useForm()
+    const { handleSubmit, register, reset, formState: { errors } } = useForm()
     const [ isVisible, setIsVisible ] = useState(false)
     const [ isVisibleInput, setIsVisibleInput ] = useState(false)
 
