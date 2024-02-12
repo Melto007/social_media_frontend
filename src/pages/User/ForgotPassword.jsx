@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import Heading1 from "../../components/Heading1"
 import { useDispatch, useSelector } from 'react-redux'
 import { forgotpasswordAction } from '../../actions/registerAction'
+import { resetPassword } from '../../features/userSlice'
 
 export default function ForgotPassword() {
     const { handleSubmit, register, formState: { errors } } = useForm()
@@ -20,14 +21,21 @@ export default function ForgotPassword() {
     const forgotpasswordReducer = useSelector(state => state.forgotpasswordReducer)
     const { forgotLoading, forgotSuccess, forgotEmail, forgotError } = forgotpasswordReducer
 
+    const userSlice = useSelector(state => state.userSlice)
+    const { users, userLoading, userSuccess, userError } = userSlice
+
     function onSubmitHandler(data) {
-        dispatch(forgotpasswordAction(data))
+        dispatch(resetPassword(data))
     }
 
     let buttons = <ButtonComponent name="submit" className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
 
-    if(forgotLoading) {
+    if(userLoading) {
         buttons = <ButtonComponent name="submit" isLoading className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
+    }
+
+    if(!userSuccess) {
+        console.log(userSuccess, userError.message)
     }
 
     return (
@@ -67,10 +75,10 @@ export default function ForgotPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {forgotSuccess ?
-                                        <span className='text-sm text-green-500'>{forgotEmail.message}</span>
+                                    {userSuccess ?
+                                        <span className='text-sm text-green-500'>{users[0].message}</span>
                                     :
-                                        <span className='text-sm text-red-500'>{forgotError}</span>
+                                        <span className='text-sm text-red-500'>{userError.message}</span>
                                     }
                                 </div>
                             </Card>

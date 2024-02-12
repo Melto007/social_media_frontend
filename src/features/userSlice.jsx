@@ -78,6 +78,30 @@ export const logoutUser = createAsyncThunk(
     }
 )
 
+// reset password for change old password
+export const resetPassword = createAsyncThunk(
+    "resetPassword",
+    async(datas, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(
+                `reset/`,
+                datas
+            )
+
+            if(data.status === 201) {
+                return data
+            }
+
+            if(data.status === 404) {
+                return rejectWithValue(data)
+            }
+        }catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
 export const userSlice = createSlice({
     name: 'userSlice',
     initialState,
@@ -115,6 +139,20 @@ export const userSlice = createSlice({
             state.userSuccess = false,
             state.users = [],
             state.isAuthenticated = false
+            state.userError = action.payload
+        })
+        builder.addCase(resetPassword.pending, (state) => {
+            state.userLoading = true
+        })
+        builder.addCase(resetPassword.fulfilled, (state, action) => {
+            state.userLoading = false,
+            state.userSuccess = true,
+            state.users.push(action.payload)
+        })
+        builder.addCase(resetPassword.rejected, (state, action) => {
+            state.userSuccess = false,
+            state.userLoading = false,
+            state.users = [],
             state.userError = action.payload
         })
         builder.addCase(logoutUser.pending, (state) => {
