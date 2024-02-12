@@ -102,6 +102,30 @@ export const resetPassword = createAsyncThunk(
     }
 )
 
+// change password
+export const changePassword = createAsyncThunk(
+    "changePassword",
+    async({ data: datas, params }, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.put(
+                `change-password/${params.pk}/`,
+                datas
+            )
+
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 404) {
+                return rejectWithValue(data)
+            }
+        } catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
 export const userSlice = createSlice({
     name: 'userSlice',
     initialState,
@@ -152,6 +176,21 @@ export const userSlice = createSlice({
         builder.addCase(resetPassword.rejected, (state, action) => {
             state.userSuccess = false,
             state.userLoading = false,
+            state.users = [],
+            state.userError = action.payload
+        })
+        builder.addCase(changePassword.pending, (state) => {
+            state.userLoading = true
+        })
+        builder.addCase(changePassword.fulfilled, (state, action) => {
+            state.userLoading = false,
+            state.userSuccess = true,
+            state.users.push(action.payload),
+            state.userError = null
+        })
+        builder.addCase(changePassword.rejected, (state, action) => {
+            state.userLoading = false,
+            state.userSuccess = false,
             state.users = [],
             state.userError = action.payload
         })

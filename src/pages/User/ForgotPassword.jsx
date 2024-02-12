@@ -11,15 +11,12 @@ import ButtonComponent from "../../components/ButtonComponent"
 import { useForm } from 'react-hook-form'
 import Heading1 from "../../components/Heading1"
 import { useDispatch, useSelector } from 'react-redux'
-import { forgotpasswordAction } from '../../actions/registerAction'
 import { resetPassword } from '../../features/userSlice'
 
 export default function ForgotPassword() {
     const { handleSubmit, register, formState: { errors } } = useForm()
 
     const dispatch = useDispatch()
-    const forgotpasswordReducer = useSelector(state => state.forgotpasswordReducer)
-    const { forgotLoading, forgotSuccess, forgotEmail, forgotError } = forgotpasswordReducer
 
     const userSlice = useSelector(state => state.userSlice)
     const { users, userLoading, userSuccess, userError } = userSlice
@@ -32,10 +29,6 @@ export default function ForgotPassword() {
 
     if(userLoading) {
         buttons = <ButtonComponent name="submit" isLoading className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
-    }
-
-    if(!userSuccess) {
-        console.log(userSuccess, userError.message)
     }
 
     return (
@@ -75,11 +68,8 @@ export default function ForgotPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {userSuccess ?
-                                        <span className='text-sm text-green-500'>{users[0].message}</span>
-                                    :
-                                        <span className='text-sm text-red-500'>{userError.message}</span>
-                                    }
+                                    {userSuccess && <span className='text-sm text-green-500'>{users[0].message}</span>}
+                                    {userError && <span className='text-sm text-red-500'>{userError.message}</span>}
                                 </div>
                             </Card>
                         </form>

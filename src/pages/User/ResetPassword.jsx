@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import Heading1 from "../../components/Heading1"
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Navigate } from 'react-router-dom'
-import { resetPasswordAction } from '../../actions/registerAction'
+import { changePassword } from '../../features/userSlice'
 
 export default function ResetPassword() {
     const params = useParams()
@@ -25,21 +25,21 @@ export default function ResetPassword() {
 
     const dispatch = useDispatch()
 
-    const resetPasswordReducer = useSelector(state => state.resetPasswordReducer)
-    const { resetLoading, resetSuccess, resetArray, resetError } = resetPasswordReducer
+    const userSlice = useSelector(state => state.userSlice)
+    const { users, userLoading, userSuccess, userError } = userSlice
 
     let buttons = <ButtonComponent name="submit" className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
 
-    if(resetLoading) {
+    if(userLoading) {
         buttons = <ButtonComponent name="submit" isLoading className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
     }
 
     function onSubmitHandler(data) {
-        dispatch(resetPasswordAction(data, params))
+        dispatch(changePassword({ data, params }))
         reset()
     }
 
-    if(resetSuccess) {
+    if(userSuccess) {
         return <Navigate to="/" />
     }
 
@@ -110,8 +110,8 @@ export default function ResetPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {resetSuccess === true && <span className='text-green-500 text-sm'>{resetArray.message}</span>}
-                                    {resetSuccess === false && <span className='text-red-500 text-sm'>{resetError}</span>}
+                                    {userSuccess && <span className='text-green-500 text-sm'>{users[0].message}</span>}
+                                    {userError && <span className='text-red-500 text-sm'>{userError.message}</span>}
                                 </div>
                             </Card>
                         </form>
