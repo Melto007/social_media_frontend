@@ -16,9 +16,8 @@ import ButtonComponent from '../../components/ButtonComponent'
 import DividerComponent from '../../components/DividerComponent';
 import TrendingSideBar from './TrendingSideBar';
 import { useDispatch, useSelector } from 'react-redux'
-import { userAction } from '../../actions/registerAction'
 import { logoutUser } from '../../features/userSlice'
-import { Navigate } from 'react-router-dom'
+import { profileDetails } from '../../features/profileSlice'
 
 export default function MenuNav() {
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
@@ -26,24 +25,17 @@ export default function MenuNav() {
 
     const dispatch = useDispatch()
 
-    const userReducer = useSelector(state => state.userReducer)
-    const { isError, user } = userReducer
-
-    const userSlice = useSelector(state => state.userSlice)
-    const { isAuthenticated } = userSlice
+    const profileSlice = useSelector(state => state.profileSlice)
+    const { isSuccess, profile } = profileSlice
 
     useEffect(() => {
         (async () => {
-            dispatch(userAction())
+            dispatch(profileDetails())
         })()
     }, [])
 
     function onLogoutHandler() {
         dispatch(logoutUser())
-    }
-
-    if(!isAuthenticated) {
-        return <Navigate to='/' />
     }
 
     return (
@@ -58,8 +50,8 @@ export default function MenuNav() {
                                 <div className='row-span-1 px-6 py-4'>
                                     <UserComponent
                                         file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                        username={`@${isError ? isError : user.name}`}
-                                        email={isError ? isError : user.email}
+                                        username={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
+                                        email={isSuccess ? profile.data.email : 'UnauthorizedUser'}
                                     />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
@@ -72,11 +64,8 @@ export default function MenuNav() {
                                     <li className='border-solid border-b-2 border-gray-800'></li>
                                 </ul>
                                 <div className='flex flex-col gap-2 row-span-1 px-4 py-2'>
-                                    {user.name ? (
-                                        <ButtonComponent onClick={onLogoutHandler} name="Logout" startContent={<Icon icon="signin-icon" />} />
-                                    ) : (
-                                        <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />
-                                    )}
+                                    {isSuccess &&  <ButtonComponent onClick={onLogoutHandler} name="Logout" startContent={<Icon icon="signin-icon" />} />}
+                                    {!isSuccess && <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />}
                                 </div>
                             </div>
                         </div>
@@ -143,8 +132,8 @@ export default function MenuNav() {
                             <div className='px-5 py-2'>
                                 <UserComponent
                                     file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                    username={`@${isError ? isError : user.name}`}
-                                    email={isError ? isError : user.email}
+                                    username={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
+                                    email={isSuccess ? profile.data.email : 'UnauthorizedUser'}
                                 />
                                 <div className='flex justify-between items-center text-sm'>
                                     <Links path='/' name="234 Followers"/>

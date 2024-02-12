@@ -28,10 +28,6 @@ export default function SignUpForm(props) {
         button = <ButtonComponent name="Sign Up" isLoading className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
     }
 
-    if(userSuccess) {
-        console.log("success", userError, users[0], userSuccess)
-    }
-
     return (
         <form>
             <div>

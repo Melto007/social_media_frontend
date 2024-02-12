@@ -68,7 +68,7 @@ export default function ForgotPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {userSuccess && <span className='text-sm text-green-500'>{users[0].message}</span>}
+                                    {userSuccess && users && <span className='text-sm text-green-500'>{users[0].message}</span>}
                                     {userError && <span className='text-sm text-red-500'>{userError.message}</span>}
                                 </div>
                             </Card>

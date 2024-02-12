@@ -151,6 +151,7 @@ export const userSlice = createSlice({
         })
         builder.addCase(userLogin.pending, (state) => {
             state.userLoading = true
+            state.users = []
         })
         builder.addCase(userLogin.fulfilled, (state, action) => {
             state.userLoading = false,
@@ -167,6 +168,8 @@ export const userSlice = createSlice({
         })
         builder.addCase(resetPassword.pending, (state) => {
             state.userLoading = true
+            state.userSuccess = false
+            state.users = []
         })
         builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.userLoading = false,
@@ -181,6 +184,8 @@ export const userSlice = createSlice({
         })
         builder.addCase(changePassword.pending, (state) => {
             state.userLoading = true
+            state.userSuccess = false
+            state.users = []
         })
         builder.addCase(changePassword.fulfilled, (state, action) => {
             state.userLoading = false,
@@ -189,13 +194,14 @@ export const userSlice = createSlice({
             state.userError = null
         })
         builder.addCase(changePassword.rejected, (state, action) => {
-            state.userLoading = false,
-            state.userSuccess = false,
-            state.users = [],
+            state.userLoading = false
+            state.userSuccess = false
+            state.users = []
             state.userError = action.payload
         })
         builder.addCase(logoutUser.pending, (state) => {
             state.userLoading = true
+            state.users = []
         })
         builder.addCase(logoutUser.fulfilled, (state, action) => {
             state.userLoading = false,
