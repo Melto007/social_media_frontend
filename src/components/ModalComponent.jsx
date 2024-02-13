@@ -2,16 +2,11 @@ import {
     Modal,
     ModalContent,
     ModalBody,
-    ModalHeader,
-    ModalFooter
+    ModalHeader
 } from "@nextui-org/react"
 
 export default function ModalComponent(props) {
     const { isOpen, onOpenChange, forms, name } = props
-
-    function onSubmitHandler() {
-        console.log("success")
-    }
 
     return (
         <>

@@ -31,6 +31,10 @@ export default function ForgotPassword() {
         buttons = <ButtonComponent name="submit" isLoading className="bg-white rounded-full text-black w-full" onClick={handleSubmit(onSubmitHandler)} />
     }
 
+    if(userSuccess) {
+        console.log("success", userError, users.length, userSuccess)
+    }
+
     return (
         <>
             <Container>
@@ -68,7 +72,7 @@ export default function ForgotPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {userSuccess && users && <span className='text-sm text-green-500'>{users[0].message}</span>}
+                                    {userSuccess && users.length !== 0 && <span className='text-sm text-green-500'>{users[0].message}</span>}
                                     {userError && <span className='text-sm text-red-500'>{userError.message}</span>}
                                 </div>
                             </Card>

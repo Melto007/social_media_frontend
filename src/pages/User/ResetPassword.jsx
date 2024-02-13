@@ -110,7 +110,7 @@ export default function ResetPassword() {
                                     {buttons}
                                 </CardFooter>
                                 <div className='text-center'>
-                                    {userSuccess && <span className='text-green-500 text-sm'>{users[0].message}</span>}
+                                    {userSuccess && users.length !== 0 && <span className='text-green-500 text-sm'>{users[0].message}</span>}
                                     {userError && <span className='text-red-500 text-sm'>{userError.message}</span>}
                                 </div>
                             </Card>

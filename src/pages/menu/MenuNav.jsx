@@ -9,7 +9,7 @@ import Container from '../../components/Container';
 import Icon from '../../components/Icon';
 import NavLinks from '../../components/NavLinks'
 
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import UserComponent from '../../components/UserComponent';
 import Links from '../../components/Links';
 import ButtonComponent from '../../components/ButtonComponent'

@@ -104,7 +104,7 @@ export default function SignUpForm(props) {
                 {button}
             </div>
             <div className='mx-2 my-2'>
-                <span className='text-sm text-green-500'>{userSuccess && users[0]}</span>
+                <span className='text-sm text-green-500'>{userSuccess && users.length !== 0 && users[0]}</span>
                 <span className='text-sm text-red-500'>{userError && userError[0]}</span>
             </div>
         </form>
