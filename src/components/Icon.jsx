@@ -24,6 +24,7 @@ import { IoCheckmarkCircleSharp } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
 import { CiMenuKebab, CiEdit, CiShare2 } from "react-icons/ci"
 import { FcGoogle } from "react-icons/fc"
+import { FaLocationDot } from "react-icons/fa6"
 
 export default function Icon(props) {
     const { icon } = props
@@ -184,6 +185,11 @@ export default function Icon(props) {
             name: 'eye-slash-icon',
             icon: <FaEyeSlash className='text-white text-md md:text-1xl' />
         },
+        {
+            id: 29,
+            name: 'location-icon',
+            icon: <FaLocationDot className="text-gray-400 text-md md:text-1xl" />
+        }
     ]
 
     return (
