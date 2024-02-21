@@ -9,7 +9,7 @@ import Container from '../../components/Container';
 import Icon from '../../components/Icon';
 import NavLinks from '../../components/NavLinks'
 
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import UserComponent from '../../components/UserComponent';
 import Links from '../../components/Links';
 import ButtonComponent from '../../components/ButtonComponent'
@@ -18,8 +18,10 @@ import TrendingSideBar from './TrendingSideBar';
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../features/userSlice'
 import { profileDetails } from '../../features/profileSlice'
+import { googleLogout } from '@react-oauth/google'
 
 export default function MenuNav() {
+    const navigate = useNavigate()
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
     const  [ isTrendingMenu, setIsTrendingMenu ] = useState(false)
 
@@ -35,6 +37,7 @@ export default function MenuNav() {
     }, [])
 
     function onLogoutHandler() {
+        googleLogout()
         dispatch(logoutUser())
     }
 

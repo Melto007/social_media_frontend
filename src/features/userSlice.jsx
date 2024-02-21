@@ -67,6 +67,7 @@ export const logoutUser = createAsyncThunk(
             if(status === 200) {
                 axios.defaults.headers.common['Authorization'] = ''
                 sessionStorage.removeItem('token')
+                window.location.replace('http://localhost:5173')
                 return data
             }
             return rejectWithValue(data)

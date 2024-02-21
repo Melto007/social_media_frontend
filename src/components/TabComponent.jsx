@@ -4,9 +4,15 @@ import {
     Tab
 } from '@nextui-org/react'
 import Cards from '../pages/Home/Cards'
+import { FollowComponents } from '../components/FollowComponents'
+import { useSelector } from 'react-redux'
 
 export default function TabComponent() {
     const [ selected, setSelected ] = useState('Posts')
+
+    const profileSlice = useSelector(state => state.profileSlice)
+    const { isSuccess, profile } = profileSlice
+
     return (
         <>
             <Tabs
@@ -22,7 +28,10 @@ export default function TabComponent() {
                     <Cards />
                 </Tab>
                 <Tab key="Followers" title="Followers">
-                    <h1>Followers</h1>
+                    <FollowComponents
+                        isSuccess={isSuccess}
+                        profile={profile}
+                    />
                 </Tab>
                 <Tab key="Following" title="Following">
                     <h1>Following</h1>

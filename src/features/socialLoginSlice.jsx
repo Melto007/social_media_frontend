@@ -17,6 +17,8 @@ export const googleLogin = createAsyncThunk(
                 datas
             )
 
+            console.log(data)
+
             if(data.status === 200) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
                 return data
