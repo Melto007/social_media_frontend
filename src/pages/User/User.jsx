@@ -8,10 +8,19 @@ import {
 import ModalComponent from '../../components/ModalComponent';
 import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
+import { googleLogin } from '../../features/socialLoginSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { GoogleLogin } from '@react-oauth/google'
+import { Navigate } from 'react-router-dom'
 
 export default function User() {
     const [ buttonContent, setButtonContent ] = useState(null)
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
+    const dispatch = useDispatch()
+    const socialLoginSlice = useSelector(state => state.socialLoginSlice)
+    const { users, isSuccess, isLoading, isError } = socialLoginSlice
 
     function handleClick(e) {
         const content = e.target.textContent
@@ -20,6 +29,19 @@ export default function User() {
             onOpen()
             setButtonContent(content)
         }
+    }
+
+    function onSuccess(credentialResponse) {
+        const datas = {'token': credentialResponse.credential}
+        dispatch(googleLogin(datas))
+    }
+
+    function onError() {
+        console.log("login failed")
+    }
+
+    if(isSuccess) {
+        return <Navigate to='home' />
     }
 
     return (
@@ -36,7 +58,15 @@ export default function User() {
                                     <h1 className="text-3xl font-bold mt-5 md:text-4xl">Happening now</h1>
                                     <h1 className="text-lg font-bold md:text-2xl">Join today.</h1>
                                     <div className="mt-2 flex flex-col gap-1">
-                                        <span className="block md:text-2xl"><ButtonComponent className="w-full mt-2 bg-white text-black font-bold" radius="full" startContent={<Icon icon="google-icon" />} name="Signup with google" /></span>
+                                        <GoogleLogin
+                                            shape="circle"
+                                            size="large"
+                                            onSuccess={onSuccess}
+                                            onError={onError}
+                                        />
+                                        <span className="block md:text-2xl">
+                                            <ButtonComponent className="w-full mt-2 bg-white text-black font-bold" radius="full" startContent={<Icon icon="google-icon" />} name="Signup with google" />
+                                        </span>
                                         <span className="block md:text-2xl"><ButtonComponent className="w-full mt-2 bg-white text-black font-bold" radius="full" startContent={<Icon icon="facebook-icon" />} name="Signup with facebook" /></span>
                                     </div>
                                 </div>

@@ -17,6 +17,7 @@ import store from './store/store'
 import { checkAuthLoader } from './pages/User/auth'
 import ForgotPassword from './pages/User/ForgotPassword';
 import ResetPassword from './pages/User/ResetPassword';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const router = createBrowserRouter([
   {
@@ -67,7 +68,9 @@ function App() {
   return (
     <Provider store={store}>
       <NextUIProvider>
-        <RouterProvider router={router} />
+        <GoogleOAuthProvider clientId="219396061932-smes23eoqdho0ci5com3ropeanvcb1vb.apps.googleusercontent.com">
+          <RouterProvider router={router} />
+        </GoogleOAuthProvider>
       </NextUIProvider>
     </Provider>
   )
