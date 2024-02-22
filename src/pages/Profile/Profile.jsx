@@ -6,19 +6,23 @@ import Paragraph from "../../components/Paragraph";
 import { useState } from "react";
 import Icon from "../../components/Icon";
 import { useSelector } from "react-redux";
-import axios from '../../interceptors/axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
+    const navigate = useNavigate()
     const [ authentication, setAuthentication ] = useState(true)
-    const authorization = axios.defaults.headers.common['Authorization']
 
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, profile } = profileSlice
 
+    function handleEdit() {
+        navigate('/home/profile/:id')
+    }
+
     let buttons = <ButtonComponent color="primary" name="follow" radius="full" size="sm" />
 
     if(authentication) {
-        buttons = <ButtonComponent variant="bordered" name="Edit" radius="full" size="sm" />
+        buttons = <ButtonComponent variant="bordered" name="Edit" radius="full" size="sm" onClick={handleEdit} />
     }
 
     return (

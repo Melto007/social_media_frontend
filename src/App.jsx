@@ -18,6 +18,7 @@ import { checkAuthLoader } from './pages/User/auth'
 import ForgotPassword from './pages/User/ForgotPassword';
 import ResetPassword from './pages/User/ResetPassword';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import DetailsProfile from './pages/Profile/DetailsProfile'
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,20 @@ const router = createBrowserRouter([
       { path: 'monetisation', element: <MonetisationPage /> },
       { path: 'message', element: <MessagePage /> },
       { path: 'lists', element: <ListsPage /> },
-      { path: 'profile', element: <Profile /> },
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+      {
+        path: 'profile',
+        element: <DetailsProfile />,
+        children: [
+          {
+            path: ':profile',
+            element: <DetailsProfile />
+          }
+        ]
+      }
     ]
   }
 ])
