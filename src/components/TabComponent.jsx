@@ -5,6 +5,7 @@ import {
 } from '@nextui-org/react'
 import Cards from '../pages/Home/Cards'
 import { FollowComponents } from '../components/FollowComponents'
+import FollowingComponent from './FollowingComponent'
 import { useSelector } from 'react-redux'
 
 export default function TabComponent() {
@@ -34,7 +35,7 @@ export default function TabComponent() {
                     />
                 </Tab>
                 <Tab key="Following" title="Following">
-                    <h1>Following</h1>
+                    <FollowingComponent />
                 </Tab>
             </Tabs>
         </>
