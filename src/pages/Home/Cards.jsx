@@ -10,8 +10,11 @@ import UserComponent from '../../components/UserComponent'
 import ButtonComponent from '../../components/ButtonComponent'
 import Icon from '../../components/Icon'
 import Paragraph from '../../components/Paragraph'
+import { useNavigate } from 'react-router-dom'
 
 export default function Cards(props) {
+    const navigate = useNavigate()
+
     const tweets = [
         {
             id: 1,
@@ -32,6 +35,11 @@ export default function Cards(props) {
             image: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D'
         }
     ]
+
+    function handleComment(pk) {
+        console.log(pk)
+        navigate(`${pk}`)
+    }
 
     return (
         <>
@@ -100,6 +108,7 @@ export default function Cards(props) {
                                     className='border-none bg-transparent padding-0'
                                     size="sm"
                                     isIconOnly
+                                    onClick={() => handleComment(item.id)}
                                 >
                                     <Icon icon="comment-icon" />
                                 </Button>

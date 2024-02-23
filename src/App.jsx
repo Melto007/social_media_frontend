@@ -19,6 +19,7 @@ import ForgotPassword from './pages/User/ForgotPassword';
 import ResetPassword from './pages/User/ResetPassword';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import DetailsProfile from './pages/Profile/DetailsProfile'
+import CommandSection from './pages/Home/CommandSection';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,14 @@ const router = createBrowserRouter([
     element: <MenuNav />,
     errorElement: <ErrorPage />,
     children: [
-      { path: '', element: <HomePage /> },
+      {
+        path: '',
+        element: <HomePage />
+      },
+      {
+        path: ':pk',
+        element: <CommandSection />
+      },
       {
         path: 'trending',
         element: <TrendingPage />,
