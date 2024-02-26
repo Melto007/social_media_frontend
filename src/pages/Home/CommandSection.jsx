@@ -4,6 +4,7 @@ import {
     CardBody,
     CardFooter,
     Button,
+    Input,
     useDisclosure
 } from '@nextui-org/react'
 import DropDown from './DropDown'
@@ -88,7 +89,7 @@ export default function CommandSection() {
     }
 
     return (
-        <>
+        <MainContainer>
             {tweets.map(item => item.id === +pk && (
                 <Card
                     className='bg-neutral-900 border-solid border-1 border-gray-800 rounded-lg'
@@ -185,7 +186,26 @@ export default function CommandSection() {
                 </Card>
             ))}
 
-            <MainContainer>
+            <div>
+                <div className='flex items-center gap-2'>
+                    <Input
+                        variant='bordered'
+                        color='primary'
+                        size="sm"
+                        radius='full'
+                        placeholder='write your comment.....'
+                    />
+                    <ButtonComponent
+                        variant="bordered"
+                        color="default"
+                        size="lg"
+                        radius="full"
+                        name={<Icon icon="send-icon" />}
+                    />
+                </div>
+            </div>
+
+            <div>
                 {commends.map(item => item.user === +pk && (
                     <div className='py-4' key={item.id}>
                         <div className='flex justify-between items-center px-2'>
@@ -233,7 +253,7 @@ export default function CommandSection() {
                         </div>
                     </div>
                 ))}
-            </MainContainer>
+            </div>
 
             <ModalComponent
                 onOpenChange={onOpenChange}
@@ -291,6 +311,6 @@ export default function CommandSection() {
                     </>
                 }
             />
-        </>
+        </MainContainer>
     )
 }
