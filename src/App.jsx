@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: ':pk',
+        path: 'command/:pk',
         element: <CommandSection />
       },
       {

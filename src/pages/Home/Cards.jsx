@@ -37,8 +37,7 @@ export default function Cards(props) {
     ]
 
     function handleComment(pk) {
-        console.log(pk)
-        navigate(`${pk}`)
+        navigate(`/home/command/${pk}`)
     }
 
     return (
