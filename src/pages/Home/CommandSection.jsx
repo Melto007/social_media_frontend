@@ -5,6 +5,7 @@ import {
     CardFooter,
     Button,
     Input,
+    ScrollShadow,
     useDisclosure
 } from '@nextui-org/react'
 import DropDown from './DropDown'
@@ -50,14 +51,93 @@ export default function CommandSection() {
             content: 'its ok',
             likes: 200,
             commends: 300,
-            user: 1
+            user: 1,
+            replies: [
+                {
+                    id: 1,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 2,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 3,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 4,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 5,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 6,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 7,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 8,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 9,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 10,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 11,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 12,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 13,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                }
+            ]
         },
         {
             id: 2,
             content: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
             likes: 250,
             commends: 200,
-            user: 1
+            user: 1,
+            replies: [
+                {
+                    id: 1,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+                {
+                    id: 2,
+                    reply: "Frontend developer and UI/UX enthusiast. Join me on this coding adventure!",
+                    user: 2,
+                },
+            ]
         },
         {
             id: 3,
@@ -86,6 +166,10 @@ export default function CommandSection() {
         const datas = commends.filter(item => item.id === pk)
         setRepliesArray([...datas])
         onOpen()
+    }
+
+    function handleComment() {
+        console.log("success")
     }
 
     return (
@@ -201,6 +285,7 @@ export default function CommandSection() {
                         size="lg"
                         radius="full"
                         name={<Icon icon="send-icon" />}
+                        onClick={handleComment}
                     />
                 </div>
             </div>
@@ -308,6 +393,42 @@ export default function CommandSection() {
                                 </div>
                             </div>
                         ))}
+
+                        <div className='flex items-center gap-2'>
+                            <Input
+                                variant='bordered'
+                                color='primary'
+                                size="sm"
+                                radius='full'
+                                placeholder='write your comment.....'
+                            />
+                            <ButtonComponent
+                                variant="bordered"
+                                color="default"
+                                size="lg"
+                                radius="full"
+                                name={<Icon icon="send-icon" />}
+                            />
+                        </div>
+
+                        <ScrollShadow hideScrollBar className='w-full max-h-[20em]'>
+                            {repliesArray.length > 0 && repliesArray[0].replies !== undefined && repliesArray[0].replies.map(item => (
+                                <div className='py-4' key={item.id}>
+                                    <div>
+                                        <UserComponent
+                                            username="john"
+                                            email="01-03-2023 11-03-08"
+                                            file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Heading1
+                                            heading={item.reply}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </ScrollShadow>
                     </>
                 }
             />
