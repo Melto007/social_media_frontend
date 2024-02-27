@@ -63,7 +63,16 @@ const router = createBrowserRouter([
           { path: ':hashTags', element: <TrendingPage /> }
         ]
       },
-      { path: 'notification', element: <NotificationPage /> },
+      {
+        path: 'notification',
+        element: <NotificationPage />,
+        children: [
+          {
+            path: ':pk',
+            element: <NotificationPage />
+          }
+        ]
+      },
       { path: 'bookmark', element: <BookmarkPage /> },
       { path: 'monetisation', element: <MonetisationPage /> },
       { path: 'message', element: <MessagePage /> },

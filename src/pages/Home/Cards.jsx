@@ -20,19 +20,22 @@ export default function Cards(props) {
             id: 1,
             content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
             hashtag: '#FrontendWithMelto',
-            image: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+            image: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            follow: true
         },
         {
             id: 2,
             content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
             hashtag: '#FrontendWithMelto',
-            image: 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg'
+            image: 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
+            follow: false
         },
         {
             id: 3,
             content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
             hashtag: '#FrontendWithMelto',
-            image: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D'
+            image: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D',
+            follow: true
         }
     ]
 
@@ -42,7 +45,7 @@ export default function Cards(props) {
 
     return (
         <>
-            {tweets.map(item => (
+            {tweets.map(item => item.follow && (
                 <Card
                     className='bg-neutral-900 border-solid border-1 border-gray-800 rounded-lg mb-2'
                     key={item.id}
@@ -58,8 +61,10 @@ export default function Cards(props) {
                         <div className='flex items-center'>
                             <ButtonComponent
                                 radius="full"
+                                variant="bordered"
+                                color={item.follow ? "danger" : "primary"}
                                 size="sm"
-                                name="Follow"
+                                name={item.follow ? "Unfollow" : "Follow"}
                             />
                             <DropDown
                                 icon={<Icon icon="menu-icon" />}
