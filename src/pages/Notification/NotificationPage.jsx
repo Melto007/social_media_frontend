@@ -37,7 +37,6 @@ export default function NotificationPage() {
                 {notification.map(item => (
                     <div key={item.id} className="py-3 flex items-center gap-2">
                         <AvatarComponent
-                            file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
                             color="primary"
                             size="md"
                         />

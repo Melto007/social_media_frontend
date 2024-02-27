@@ -51,11 +51,7 @@ export default function MenuNav() {
                         <div className='hidden md:block bg-neutral-900 h-auto'>
                             <div className='grid grid-rows-5 sticky top-0'>
                                 <div className='row-span-1 px-6 py-4'>
-                                    <UserComponent
-                                        file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                        username={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
-                                        email={isSuccess ? profile.data.email : 'UnauthorizedUser'}
-                                    />
+                                    <UserComponent />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
                                         <Links path='/' name="212 Following"/>
@@ -90,7 +86,6 @@ export default function MenuNav() {
 
                                 <NavbarContent justify="end">
                                     <AvatarComponent
-                                        file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
                                         color="primary"
                                         size="md"
                                         onClick={() => setIsTrendingMenu(!isTrendingMenu)}
@@ -133,11 +128,7 @@ export default function MenuNav() {
                             `}
                         >
                             <div className='px-5 py-2'>
-                                <UserComponent
-                                    file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                    username={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
-                                    email={isSuccess ? profile.data.email : 'UnauthorizedUser'}
-                                />
+                                <UserComponent />
                                 <div className='flex justify-between items-center text-sm'>
                                     <Links path='/' name="234 Followers"/>
                                     <Links path='/' name="212 Following"/>

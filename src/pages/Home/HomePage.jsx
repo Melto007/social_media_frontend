@@ -40,7 +40,11 @@ export default function HomePage() {
                         </ul>
                     </div> */}
                     <div>
-                        <ButtonComponent name="Create Post" startContent={<Icon icon="tweet-icon" />} onPress={onOpen}/>
+                        <ButtonComponent
+                            name="create post"
+                            startContent={<Icon icon="tweet-icon" />}
+                            onPress={onOpen}
+                        />
                     </div>
                 </div>
                 <DividerComponent />

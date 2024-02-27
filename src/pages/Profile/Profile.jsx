@@ -31,11 +31,7 @@ export default function Profile() {
                 <div className="bg-neutral-900">
                     <div className="flex justify-between">
                         <div>
-                            <UserComponent
-                                file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                                username={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
-                                email={isSuccess ? profile.data.email : 'UnauthorizedUser'}
-                            />
+                            <UserComponent />
                         </div>
                         <div>
                             {buttons}
