@@ -52,7 +52,7 @@ export default function TrendingSideBar() {
         <>
             <div className='flex flex-col gap-2'>
                 <div>
-                    <SearchComponent />
+                    <SearchComponent data={data} />
                 </div>
 
                 <ul className='md:max-h-[45em] overflow-y-auto overflow-hidden'>

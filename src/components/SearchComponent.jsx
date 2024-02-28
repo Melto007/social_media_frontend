@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react'
-import { data } from '../Data'
 import Icon from './Icon'
 
-export default function SearchComponent() {
+export default function SearchComponent(props) {
+    const { data } = props
     const [ activeSearch, setActiveSearch ] = useState([])
     const myRef = useRef(null)
 
@@ -14,7 +14,7 @@ export default function SearchComponent() {
         }
 
         setActiveSearch(
-            data.filter(value => value.title.toLowerCase().includes(searchWord.toLowerCase()))
+            data.filter(value => value.name.toLowerCase().includes(searchWord.toLowerCase()))
         )
     }
 
@@ -24,7 +24,7 @@ export default function SearchComponent() {
 
     function handleItem(item) {
         if(Object.keys(item).length !== 0) {
-            myRef.current.value = item.title
+            myRef.current.value = item.name
             setActiveSearch([])
         }
     }
@@ -49,7 +49,7 @@ export default function SearchComponent() {
                             <div className='absolute w-full bg-neutral-800 flex flex-col gap-2 rounded-lg p-2 mt-1 left-1/2 -translate-x-1/2 cursor-pointer'>
                                 {
                                     activeSearch.slice(0, 15).map((item, key) => (
-                                        <span key={key} onClick={() => handleItem(item)}>{item.title}</span>
+                                        <span key={key} onClick={() => handleItem(item)}>{item.name}</span>
                                     ))
                                 }
                             </div>
