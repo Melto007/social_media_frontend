@@ -1,4 +1,3 @@
-import DividerComponent from '../../components/DividerComponent'
 import SearchComponent from '../../components/SearchComponent'
 import { Link } from 'react-router-dom'
 import Icon from '../../components/Icon'

@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react'
 import Icon from './Icon'
+import { useNavigate } from 'react-router-dom'
 
 export default function SearchComponent(props) {
+    const navigate = useNavigate()
     const { data } = props
     const [ activeSearch, setActiveSearch ] = useState([])
     const myRef = useRef(null)
@@ -20,6 +22,7 @@ export default function SearchComponent(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
+        navigate(`trending/${item.name}`)
     }
 
     function handleItem(item) {
