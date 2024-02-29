@@ -49,20 +49,20 @@ export default function MenuNav() {
 
                         {/** laptops */}
                         <div className='hidden md:block bg-neutral-900 h-auto'>
-                            <div className='grid grid-rows-5 sticky top-0'>
-                                <div className='row-span-1 px-6 py-4'>
+                            <div className='sticky top-0'>
+                                <div className='px-6 py-4'>
                                     <UserComponent />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
                                         <Links path='/' name="212 Following"/>
                                     </div>
                                 </div>
-                                <ul className='row-span-3'>
+                                <ul className=''>
                                     <li className='border-solid border-t-2 border-gray-800'></li>
                                         <NavLinks />
                                     <li className='border-solid border-b-2 border-gray-800'></li>
                                 </ul>
-                                <div className='flex flex-col gap-2 row-span-1 px-4 py-2'>
+                                <div className='flex flex-col gap-2 px-4 py-4'>
                                     {isSuccess &&  <ButtonComponent onClick={onLogoutHandler} name="Logout" startContent={<Icon icon="signin-icon" />} />}
                                     {!isSuccess && <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />}
                                 </div>
@@ -140,8 +140,8 @@ export default function MenuNav() {
                                 <DividerComponent />
                             </ul>
                             <div className='flex flex-col gap-2 py-2 px-4'>
-                                <ButtonComponent name="Sign In" startContent={<Icon icon="signin-icon" />} />
-                                <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />
+                                {isSuccess &&  <ButtonComponent onClick={onLogoutHandler} name="Logout" startContent={<Icon icon="signin-icon" />} />}
+                                {!isSuccess && <ButtonComponent name="Log In" startContent={<Icon icon="login-icon" />} />}
                             </div>
                         </div>
 

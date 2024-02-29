@@ -36,12 +36,6 @@ export default function NavLinks() {
         },
         {
             id: 6,
-            path: 'lists',
-            name: 'Lists',
-            icon: 'list-icon'
-        },
-        {
-            id: 8,
             path: 'profile',
             name: 'Profile',
             icon: 'user-icon'

@@ -17,10 +17,10 @@ import {
 } from "react-icons/fa"
 
 import { FaMessage } from "react-icons/fa6"
-import { IoIosLogIn, IoMdDownload, IoMdNotifications   } from "react-icons/io"
+import { IoIosLogIn, IoMdDownload, IoMdNotifications, IoMdArrowRoundBack } from "react-icons/io"
 import { GoSignIn } from "react-icons/go";
 import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/md"
-import { IoCheckmarkCircleSharp } from "react-icons/io5"
+import { IoCheckmarkCircleSharp, IoSend } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
 import { CiMenuKebab, CiEdit, CiShare2 } from "react-icons/ci"
 import { FcGoogle } from "react-icons/fc"
@@ -195,6 +195,16 @@ export default function Icon(props) {
             id: 30,
             name: 'send-icon',
             icon: <FiSend className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 31,
+            name: 'back-icon',
+            icon: <IoMdArrowRoundBack className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 32,
+            name: 'send-message-icon',
+            icon: <IoSend className='text-white text-md md:text-1xl' />
         }
     ]
 

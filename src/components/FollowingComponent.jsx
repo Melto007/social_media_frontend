@@ -1,5 +1,5 @@
 import ButtonComponent from "./ButtonComponent"
-import UserComponent from "./UserComponent"
+import Followers from "./Followers"
 
 export default function FollowingComponent() {
     const datas = [
@@ -89,7 +89,7 @@ export default function FollowingComponent() {
         <>
             {datas.map(item => (
                 <div className='flex justify-between items-center px-3 py-4'>
-                    <UserComponent
+                    <Followers
                         file={item.file && item.file}
                         username={item.name && item.name}
                         email={item.email && item.email}

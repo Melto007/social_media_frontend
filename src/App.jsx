@@ -20,6 +20,7 @@ import ResetPassword from './pages/User/ResetPassword';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import DetailsProfile from './pages/Profile/DetailsProfile'
 import CommandSection from './pages/Home/CommandSection';
+import SingleMessage from './pages/Message/SingleMessage';
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       { path: 'bookmark', element: <BookmarkPage /> },
       { path: 'monetisation', element: <MonetisationPage /> },
       { path: 'message', element: <MessagePage /> },
+      {
+        path: 'message/:pk',
+        element: <SingleMessage />
+      },
       { path: 'lists', element: <ListsPage /> },
       {
         path: 'profile',

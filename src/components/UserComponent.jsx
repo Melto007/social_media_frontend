@@ -11,9 +11,9 @@ export default function UserComponent() {
             <User
                 name={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
                 description={(
-                    <Link to="/">
+                    <p>
                         {isSuccess ? profile.data.email : 'UnauthorizedUser'}
-                    </Link>
+                    </p>
                 )}
                 avatarProps={{
                     src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
