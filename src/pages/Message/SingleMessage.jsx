@@ -161,29 +161,35 @@ export default function SingleMessage() {
         {
             id: 11,
             message: "hi....",
-            sender: true,
-            reciever: false
+            sender: false,
+            reciever: true
         },
         {
             id: 12,
             message: "hi....",
+            sender: true,
+            reciever: false
+        },
+        {
+            id: 13,
+            message: "hi....",
             sender: false,
             reciever: true
         },
         {
-            id: 13,
+            id: 14,
             message: "hi....",
             sender: true,
             reciever: false
         },
         {
-            id: 14,
+            id: 15,
             message: "hi....",
             sender: false,
             reciever: true
         },
         {
-            id: 15,
+            id: 16,
             message: "hi....",
             sender: true,
             reciever: false
