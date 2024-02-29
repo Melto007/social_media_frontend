@@ -193,7 +193,7 @@ export default function SingleMessage() {
     function handleMessageBox(item) {
         if(item.sender === true) {
             return (
-                <div className='py-3 w-[50%] rounded-lg px-4 bg-black'>
+                <div className='py-3 w-[50%] rounded-xl px-4 bg-[#d7dede] text-black'>
                     <Heading1
                         heading={item.sender && item.message}
                     />
@@ -201,8 +201,8 @@ export default function SingleMessage() {
             )
         } else if(item.reciever === true) {
             return (
-                <div className='w-[100%] m-auto'>
-                    <div className='py-3 w-[50%] rounded-lg px-4 bg-blue-500'>
+                <div className='flex justify-end items-end'>
+                    <div className='py-3 w-[50%] text-end rounded-xl px-4 bg-blue-500'>
                         <Heading1
                             heading={item.reciever && item.message}
                         />
@@ -224,11 +224,11 @@ export default function SingleMessage() {
                     <Link to='/home/message' className='text-lg md:text-2xl'><Icon icon="back-icon" /></Link>
                 </div>
                 <ScrollShadow hideScrollBar className='h-[70vh]'>
-                    <div className='flex flex-col'>
+                    <div className='py-2 flex flex-col'>
                         {message.map(item => handleMessageBox(item))}
                     </div>
                 </ScrollShadow>
-                <div className='h-20'>
+                <div className='mt-4 h-20'>
                     <div className='flex justify-between items-center'>
                         <Input
                             placeholder='Write the message....'
