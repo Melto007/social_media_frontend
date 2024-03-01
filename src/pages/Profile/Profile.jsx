@@ -45,7 +45,7 @@ export default function Profile() {
                             <Icon
                                 icon="location-icon"
                             />
-                            <Paragraph content="India, TamilNadu, Nagercoil" />
+                            <Paragraph content="India, Tamilnadu, Nagercoil" />
                         </div>
                     </div>
                     <div>

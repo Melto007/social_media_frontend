@@ -7,7 +7,7 @@ export function FollowComponents(props) {
     const datas = [
         {
             id: 1,
-            name: 'shehin melto',
+            name: 'shehinmelto',
             email: 'meltosm8@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -15,7 +15,7 @@ export function FollowComponents(props) {
         },
         {
             id: 2,
-            name: 'shegin jovito',
+            name: 'sheginjovito',
             email: 'shegin@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -23,7 +23,7 @@ export function FollowComponents(props) {
         },
         {
             id: 3,
-            name: 'sherin mesija',
+            name: 'sherinmesija',
             email: 'mesija@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -31,7 +31,7 @@ export function FollowComponents(props) {
         },
         {
             id: 4,
-            name: 'john cena',
+            name: 'johncena',
             email: 'johncena@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -39,7 +39,7 @@ export function FollowComponents(props) {
         },
         {
             id: 5,
-            name: 'randy orton',
+            name: 'randyorton',
             email: 'shegin@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -47,7 +47,7 @@ export function FollowComponents(props) {
         },
         {
             id: 6,
-            name: 'seth rollins',
+            name: 'sethrollins',
             email: 'seth@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -79,7 +79,7 @@ export function FollowComponents(props) {
         },
         {
             id: 10,
-            name: 'cm punk',
+            name: 'cmpunk',
             email: 'punkcm@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,

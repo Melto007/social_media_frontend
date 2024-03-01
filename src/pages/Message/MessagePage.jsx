@@ -9,7 +9,7 @@ export default function MessagePage() {
     const datas = [
         {
             id: 1,
-            name: 'shehin melto',
+            name: 'shehinmelto',
             email: 'meltosm8@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -17,7 +17,7 @@ export default function MessagePage() {
         },
         {
             id: 2,
-            name: 'shegin jovito',
+            name: 'sheginjovito',
             email: 'shegin@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -25,7 +25,7 @@ export default function MessagePage() {
         },
         {
             id: 3,
-            name: 'sherin mesija',
+            name: 'sherinmesija',
             email: 'mesija@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -33,7 +33,7 @@ export default function MessagePage() {
         },
         {
             id: 4,
-            name: 'john cena',
+            name: 'johncena',
             email: 'johncena@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -41,7 +41,7 @@ export default function MessagePage() {
         },
         {
             id: 5,
-            name: 'randy orton',
+            name: 'randyorton',
             email: 'shegin@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -49,7 +49,7 @@ export default function MessagePage() {
         },
         {
             id: 6,
-            name: 'seth rollins',
+            name: 'sethrollins',
             email: 'seth@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -81,7 +81,7 @@ export default function MessagePage() {
         },
         {
             id: 10,
-            name: 'cm punk',
+            name: 'cmpunk',
             email: 'punkcm@gmail.com',
             file: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
             followers: true,
@@ -98,7 +98,7 @@ export default function MessagePage() {
                 />
             </div>
             <DividerComponent />
-            {datas.map(item => (
+            {datas.map(item => item.followers === true && (
                 <div className='py-2 px-2' key={item.id}>
                     <Link to={`${item.id}`}>
                         <Followers

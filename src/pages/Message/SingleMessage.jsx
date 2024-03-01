@@ -199,7 +199,7 @@ export default function SingleMessage() {
     function handleMessageBox(item) {
         if(item.sender === true) {
             return (
-                <div className='py-3 w-[50%] rounded-xl px-4 bg-[#d7dede] text-black'>
+                <div className='py-3 w-[40%] rounded-xl px-4 bg-[#d7dede] text-black'>
                     <Heading1
                         heading={item.sender && item.message}
                     />
@@ -208,7 +208,7 @@ export default function SingleMessage() {
         } else if(item.reciever === true) {
             return (
                 <div className='flex justify-end items-end'>
-                    <div className='py-3 w-[50%] text-end rounded-xl px-4 bg-blue-500'>
+                    <div className='py-3 w-[40%] text-end rounded-xl px-4 bg-blue-500'>
                         <Heading1
                             heading={item.reciever && item.message}
                         />
