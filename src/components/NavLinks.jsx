@@ -18,24 +18,30 @@ export default function NavLinks() {
         },
         {
             id: 3,
+            path: 'followers',
+            name: "Find Followers",
+            icon: "search-icon"
+        },
+        {
+            id: 4,
             path: 'bookmark',
             name: 'Bookmark',
             icon: 'bookmark-icon'
         },
         {
-            id: 4,
+            id: 5,
             path: 'monetisation',
             name: 'Monetisation',
             icon: 'monetisation-icon'
         },
         {
-            id: 5,
+            id: 6,
             path: 'message',
             name: 'Message',
             icon: 'message-icon'
         },
         {
-            id: 6,
+            id: 7,
             path: 'profile',
             name: 'Profile',
             icon: 'user-icon'

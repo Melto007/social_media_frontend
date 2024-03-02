@@ -21,6 +21,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import DetailsProfile from './pages/Profile/DetailsProfile'
 import CommandSection from './pages/Home/CommandSection';
 import SingleMessage from './pages/Message/SingleMessage';
+import FindFollowers from './pages/FindFollowers/FindFollowers';
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
             element: <DetailsProfile />
           }
         ]
+      },
+      {
+        path: 'followers',
+        element: <FindFollowers />
       }
     ]
   }
