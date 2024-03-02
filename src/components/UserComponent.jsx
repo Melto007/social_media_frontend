@@ -9,10 +9,10 @@ export default function UserComponent() {
     return (
         <>
             <User
-                name={`@${isSuccess ? profile.data.name : 'UnauthorizedUser'}`}
+                name={`@${isSuccess ? profile.data.user.name : 'UnauthorizedUser'}`}
                 description={(
                     <p>
-                        {isSuccess ? profile.data.email : 'UnauthorizedUser'}
+                        {isSuccess ? profile.data.user.email : 'UnauthorizedUser'}
                     </p>
                 )}
                 avatarProps={{

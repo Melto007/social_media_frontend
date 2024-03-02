@@ -43,8 +43,8 @@ export default function DetailsProfile() {
                                 className="w-[3em] h-[3em] mb-2 text-large md:w-20 md:h-20"
                                 color="primary"
                             />
-                            <Heading1 heading={`@${profile.data.name}`} />
-                            <Paragraph content={profile.data.email} />
+                            <Heading1 heading={`@${profile.data.user.name}`} />
+                            <Paragraph content={profile.data.user.email} />
                             <ButtonComponent
                                 onClick={() => onOpen()}
                                 className="mt-1"
