@@ -3,9 +3,9 @@ import axios from '../interceptors/axios'
 
 const initialState = {
     loading: false,
-    success: true,
-    friend: [],
-    error: null
+    success: false,
+    friends: null,
+    isError: null
 }
 
 export const getFollowers = createAsyncThunk(
@@ -16,7 +16,13 @@ export const getFollowers = createAsyncThunk(
                 'findFollowers/'
             )
 
-            console.log(data)
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 404) {
+                return rejectWithValue(data)
+            }
         }catch(error) {
             const data = ['Oops something went wrong...']
             return rejectWithValue(data)
@@ -27,19 +33,21 @@ export const getFollowers = createAsyncThunk(
 export const friendSlice = createSlice({
     name: "friendSlice",
     initialState,
-    reducers: {},
+    reducer: {},
     extraReducers: (builder) => {
         builder.addCase(getFollowers.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(getFollowers.fulfilled, (action, state) => {
-            state.loading = false,
-            state.success = true,
-            state.friend.push(action.payload)
+        builder.addCase(getFollowers.fulfilled, (state, action) => {
+            state.loading = false
+            state.success = true
+            state.friends = action.payload
         })
-        builder.addCase(getFollowers.rejected, (action, state) => {
-            state.loading = false,
-            state.error = action.payload
+        builder.addCase(getFollowers.rejected, (state, action) => {
+            state.loading = false
+            state.isError = action.payload
         })
     }
 })
+
+export default friendSlice.reducer

@@ -18,7 +18,9 @@ export default function DetailsProfile() {
     const { isSuccess, isLoading, profile } = profileSlice
 
     useEffect(() => {
-        dispatch(profileDetails())
+        (async () => {
+            dispatch(profileDetails())
+        })()
     }, [])
 
     return (

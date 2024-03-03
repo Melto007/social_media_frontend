@@ -28,7 +28,7 @@ export default function MenuNav() {
     const dispatch = useDispatch()
 
     const profileSlice = useSelector(state => state.profileSlice)
-    const { isSuccess, profile } = profileSlice
+    const { isSuccess } = profileSlice
 
     useEffect(() => {
         (async () => {

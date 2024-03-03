@@ -1,10 +1,18 @@
+import { useEffect } from 'react'
 import { User } from "@nextui-org/react"
-import { useSelector } from "react-redux"
-import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux"
+import { profileDetails } from '../features/profileSlice'
 
 export default function UserComponent() {
+    const dispatch = useDispatch()
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, profile } = profileSlice
+
+    useEffect(() => {
+        (async () => {
+            dispatch(profileDetails())
+        })()
+    }, [])
 
     return (
         <>
