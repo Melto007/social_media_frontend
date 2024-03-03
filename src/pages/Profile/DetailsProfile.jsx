@@ -9,6 +9,7 @@ import Paragraph from '../../components/Paragraph'
 import ButtonComponent from '../../components/ButtonComponent'
 import ModalComponent from '../../components/ModalComponent'
 import { useDisclosure, Input, Textarea } from '@nextui-org/react'
+import LoadingContainer from '../../components/LoadingContainer'
 
 export default function DetailsProfile() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -27,13 +28,9 @@ export default function DetailsProfile() {
         <>
             {
                 isLoading && (
-                    <MainContainer
-                        className="bg-neutral-900 h-[100vh]"
-                    >
-                        <div className='flex justify-center items-center translate-y-[10em]'>
-                            <LoadingComponent />
-                        </div>
-                    </MainContainer>
+                    <LoadingContainer>
+                        <LoadingComponent />
+                    </LoadingContainer>
                 )
             }
             {

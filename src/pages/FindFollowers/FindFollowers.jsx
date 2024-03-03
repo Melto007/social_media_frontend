@@ -5,6 +5,10 @@ import Icon from "../../components/Icon";
 import MainContainer from "../../components/MainContainer";
 import { getFollowers } from '../../features/followersSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import Followers from '../../components/Followers';
+import LoadingComponent from '../../components/LoadingComponent';
+import ButtonComponent from '../../components/ButtonComponent';
+import LoadingContainer from '../../components/LoadingContainer'
 
 export default function FindFollowers() {
     const myRef = useRef()
@@ -12,7 +16,7 @@ export default function FindFollowers() {
     const dispatch = useDispatch()
 
     const friendSlice = useSelector(state => state.friendSlice)
-    const { friends } = friendSlice
+    const { success, loading, friends } = friendSlice
 
     useEffect(() => {
         (async () => {
@@ -74,6 +78,30 @@ export default function FindFollowers() {
                         )
                     }
                 </div>
+                {
+                    loading && (
+                        <LoadingContainer>
+                            <LoadingComponent />
+                        </LoadingContainer>
+                    )
+
+                }
+                {success && friends.data.map(item => (
+                    <div className='bg-neutral-900 w-full'>
+                        <div className='p-2 mt-2 flex justify-between'>
+                            <Followers
+                                email={item.email}
+                                username={item.name}
+                            />
+                            <ButtonComponent
+                                name="follow"
+                                size="sm"
+                                variant="bordered"
+                                radius="full"
+                            />
+                        </div>
+                    </div>
+                ))}
             </MainContainer>
         </>
     )
