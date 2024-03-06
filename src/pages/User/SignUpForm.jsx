@@ -20,6 +20,7 @@ export default function SignUpForm(props) {
 
     function onSubmitHandler(data) {
         dispatch(userRegister(data))
+        reset()
     }
 
     let button = <ButtonComponent name="Sign Up" className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />

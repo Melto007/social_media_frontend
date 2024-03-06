@@ -5,6 +5,7 @@ const initialState = {
     users: [],
     userLoading: false,
     userSuccess: false,
+    isAuthenticated: false,
     userError: null
 }
 
@@ -151,17 +152,19 @@ export const userSlice = createSlice({
         })
         builder.addCase(userLogin.pending, (state) => {
             state.userLoading = true
+            state.userSuccess = false
             state.users = []
         })
         builder.addCase(userLogin.fulfilled, (state, action) => {
-            state.userLoading = false,
-            state.userSuccess = true,
+            state.userLoading = false
+            state.userSuccess = true
+            state.isAuthenticated = true
             state.users.push(action.payload)
         })
         builder.addCase(userLogin.rejected, (state, action) => {
-            state.userLoading = false,
-            state.userSuccess = false,
-            state.users = [],
+            state.userLoading = false
+            state.userSuccess = false
+            state.users = []
             state.userError = action.payload
         })
         builder.addCase(resetPassword.pending, (state) => {

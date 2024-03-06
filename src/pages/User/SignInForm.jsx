@@ -15,7 +15,7 @@ export default function SignInForm(props) {
     const dispatch = useDispatch()
 
     const userSlice = useSelector(state => state.userSlice)
-    const { userSuccess, users, userError, userLoading } = userSlice
+    const { isAuthenticated, userSuccess, users, userError, userLoading } = userSlice
 
     function onSubmitHandler(data) {
         dispatch(userLogin(data))
@@ -27,7 +27,7 @@ export default function SignInForm(props) {
         buttons = <ButtonComponent name="Sign In" isLoading className="w-full rounded-full bg-white text-black font-bold" onClick={handleSubmit(onSubmitHandler)} />
     }
 
-    if(userSuccess) {
+    if(isAuthenticated) {
         return <Navigate to='home' />
     }
 
