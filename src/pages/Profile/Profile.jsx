@@ -3,25 +3,38 @@ import UserComponent from "../../components/UserComponent";
 import ButtonComponent from "../../components/ButtonComponent";
 import MainContainer from '../../components/MainContainer'
 import Paragraph from "../../components/Paragraph";
-import { useState } from "react";
+import { useEffect } from "react";
 import Icon from "../../components/Icon";
-import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from 'react-router-dom'
+import { profileDetails, otherProfile } from '../../features/profileSlice'
 
 export default function Profile() {
     const navigate = useNavigate()
-    const [ authentication, setAuthentication ] = useState(true)
+    const dispatch = useDispatch()
+
+    const { pk } = useParams()
 
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, profile } = profileSlice
 
+    useEffect(() => {
+        (async() => {
+            if(pk) {
+                dispatch(otherProfile(pk))
+            } else {
+                dispatch(profileDetails())
+            }
+        })()
+    }, [isSuccess, pk])
+
     function handleEdit() {
-        navigate('/home/profile/:id')
+        navigate('/home/profileDetails/:id')
     }
 
     let buttons = <ButtonComponent color="primary" name="follow" radius="full" size="sm" />
 
-    if(authentication) {
+    if(isSuccess && !pk) {
         buttons = <ButtonComponent variant="bordered" name="Edit" radius="full" size="sm" onClick={handleEdit} />
     }
 
@@ -31,7 +44,12 @@ export default function Profile() {
                 <div className="bg-neutral-900">
                     <div className="flex justify-between">
                         <div>
-                            <UserComponent />
+                            <UserComponent
+                                success={isSuccess}
+                                username={isSuccess && profile.data.user.name}
+                                email={isSuccess && profile.data.user.email}
+                                file={isSuccess && profile.data.url}
+                            />
                         </div>
                         <div>
                             {buttons}

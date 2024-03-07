@@ -42,9 +42,9 @@ export default function NavLinks() {
         },
         {
             id: 7,
-            path: 'profile',
+            path: `profile`,
             name: 'Profile',
-            icon: 'user-icon'
+            icon: 'user-icon',
         }
     ]
 

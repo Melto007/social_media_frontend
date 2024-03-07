@@ -88,7 +88,7 @@ export default function FollowingComponent() {
     return (
         <>
             {datas.map(item => (
-                <div className='flex justify-between items-center px-3 py-4'>
+                <div className='flex justify-between items-center px-3 py-4' key={item.id}>
                     <Followers
                         file={item.file && item.file}
                         username={item.name && item.name}

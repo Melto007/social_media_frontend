@@ -86,9 +86,15 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+        children: [
+          {
+            path: ':pk',
+            element: <Profile />
+          }
+        ]
       },
       {
-        path: 'profile',
+        path: 'profileDetails',
         element: <DetailsProfile />,
         children: [
           {

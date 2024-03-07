@@ -87,11 +87,13 @@ export default function FindFollowers() {
 
                 }
                 {success && friends.data.map(item => (
-                    <div className='bg-neutral-900 w-full'>
+                    <div className='bg-neutral-900 w-full' key={item.id}>
                         <div className='p-2 mt-2 flex justify-between'>
                             <Followers
-                                email={item.email}
-                                username={item.name}
+                                pk={item.id}
+                                email={item.user.email}
+                                username={item.user.name}
+                                file={item.url}
                             />
                             <ButtonComponent
                                 name="follow"

@@ -14,7 +14,30 @@ export const profileDetails = createAsyncThunk(
     async(args, { rejectWithValue }) => {
         try {
             const { data } = await axios.get(
-                'profile/'
+                `profile/`
+            )
+
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 404) {
+                return rejectWithValue(data)
+            }
+        }catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
+// other user profile
+export const otherProfile = createAsyncThunk(
+    "otherProfile",
+    async(pk, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.get(
+                `profile/${pk}`
             )
 
             if(data.status === 200) {
@@ -45,6 +68,18 @@ export const profileSlice = createSlice({
             state.profile = action.payload
         })
         builder.addCase(profileDetails.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = action.payload
+        })
+        builder.addCase(otherProfile.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(otherProfile.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.profile = action.payload
+        })
+        builder.addCase(otherProfile.rejected, (state, action) => {
             state.isLoading = false
             state.isError = action.payload
         })
