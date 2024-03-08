@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import MainContainer from "../../components/MainContainer"
 import AvatarComponent from "../../components/AvatarComponent"
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,8 +11,11 @@ import ModalComponent from '../../components/ModalComponent'
 import { useDisclosure, Input, Textarea } from '@nextui-org/react'
 import LoadingContainer from '../../components/LoadingContainer'
 import Icon from '../../components/Icon'
+import { Image } from '@nextui-org/react'
 
 export default function DetailsProfile() {
+    const [ changeImage, setChangeImage ] = useState()
+
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure()
 
@@ -25,6 +28,10 @@ export default function DetailsProfile() {
             dispatch(profileDetails())
         })()
     }, [])
+
+    function handleFiles(e) {
+        setChangeImage(URL.createObjectURL(e.target.files[0]))
+    }
 
     return (
         <>
@@ -154,6 +161,15 @@ export default function DetailsProfile() {
                 forms={
                     <form>
                         <div className='flex flex-col gap-3'>
+                            <input
+                                type="file"
+                                className='border-1 border-white p-2 rounded-lg'
+                                onChange={handleFiles}
+                            />
+                            <Image
+                                alt="profile image"
+                                src={changeImage}
+                            />
                             <ButtonComponent
                                 name="submit"
                                 size="md"

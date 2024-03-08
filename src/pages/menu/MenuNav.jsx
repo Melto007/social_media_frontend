@@ -9,7 +9,7 @@ import Container from '../../components/Container';
 import Icon from '../../components/Icon';
 import NavLinks from '../../components/NavLinks'
 
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom'
 import UserComponent from '../../components/UserComponent';
 import Links from '../../components/Links';
 import ButtonComponent from '../../components/ButtonComponent'
@@ -90,12 +90,14 @@ export default function MenuNav() {
                                 </NavbarContent>
 
                                 <NavbarContent justify="end">
-                                    <AvatarComponent
-                                        color="primary"
-                                        size="md"
-                                        file={isSuccess ? profile.data.url : undefined}
-                                        onClick={() => setIsTrendingMenu(!isTrendingMenu)}
-                                    />
+                                    <Link to='profile'>
+                                        <AvatarComponent
+                                            color="primary"
+                                            size="md"
+                                            file={isSuccess ? profile.data.url : undefined}
+                                            onClick={() => setIsTrendingMenu(!isTrendingMenu)}
+                                        />
+                                    </Link>
                                 </NavbarContent>
                             </Navbar>
 
