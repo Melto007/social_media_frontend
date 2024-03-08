@@ -18,7 +18,7 @@ export default function UserComponent(props) {
     return (
         <>
             <User
-                name={success ? username : "UnauthorizedUser"}
+                name={success ? username : "@unauthorizeduser"}
                 description={(
                     <p>
                         {success ? email : "UnauthorizedUser"}

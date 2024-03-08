@@ -28,7 +28,7 @@ export default function MenuNav() {
     const dispatch = useDispatch()
 
     const profileSlice = useSelector(state => state.profileSlice)
-    const { isSuccess } = profileSlice
+    const { isSuccess, profile } = profileSlice
 
     useEffect(() => {
         (async () => {
@@ -51,7 +51,12 @@ export default function MenuNav() {
                         <div className='hidden md:block bg-neutral-900 h-auto'>
                             <div className='sticky top-0'>
                                 <div className='px-6 py-4'>
-                                    <UserComponent />
+                                    <UserComponent
+                                        success={isSuccess}
+                                        username={isSuccess && profile.data.user.name}
+                                        email={isSuccess && profile.data.user.email}
+                                        file={isSuccess && profile.data.url}
+                                    />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
                                         <Links path='/' name="212 Following"/>
