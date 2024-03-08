@@ -10,9 +10,11 @@ import ButtonComponent from '../../components/ButtonComponent'
 import ModalComponent from '../../components/ModalComponent'
 import { useDisclosure, Input, Textarea } from '@nextui-org/react'
 import LoadingContainer from '../../components/LoadingContainer'
+import Icon from '../../components/Icon'
 
 export default function DetailsProfile() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure()
 
     const dispatch = useDispatch()
     const profileSlice = useSelector(state => state.profileSlice)
@@ -38,9 +40,16 @@ export default function DetailsProfile() {
                     <MainContainer>
                         <div className='flex flex-col items-center'>
                             <AvatarComponent
-                                file="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                                file={isSuccess ? profile.data.url : undefined}
                                 className="w-[3em] h-[3em] mb-2 text-large md:w-20 md:h-20"
                                 color="primary"
+                            />
+                            <ButtonComponent
+                                onClick={() => onOpen2()}
+                                size="sm"
+                                className="text-xl md:text-2xl mt-1"
+                                variant="bordered"
+                                name={<Icon icon="camera-icon" />}
                             />
                             <Heading1 heading={`@${profile.data.user.name}`} />
                             <Paragraph content={profile.data.user.email} />
@@ -127,6 +136,24 @@ export default function DetailsProfile() {
                                 label="confirm password"
                                 size="sm"
                             />
+                            <ButtonComponent
+                                name="submit"
+                                size="md"
+                                className="bg-white text-black"
+                                radius="full"
+                            />
+                        </div>
+                    </form>
+                }
+            />
+
+            <ModalComponent
+                onOpenChange={onOpenChange2}
+                isOpen={isOpen2}
+                name="choose profile picture"
+                forms={
+                    <form>
+                        <div className='flex flex-col gap-3'>
                             <ButtonComponent
                                 name="submit"
                                 size="md"

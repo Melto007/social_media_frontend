@@ -93,6 +93,7 @@ export default function MenuNav() {
                                     <AvatarComponent
                                         color="primary"
                                         size="md"
+                                        file={isSuccess ? profile.data.url : undefined}
                                         onClick={() => setIsTrendingMenu(!isTrendingMenu)}
                                     />
                                 </NavbarContent>

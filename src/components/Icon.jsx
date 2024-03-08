@@ -22,7 +22,7 @@ import { GoSignIn } from "react-icons/go";
 import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/md"
 import { IoCheckmarkCircleSharp, IoSend } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
-import { CiMenuKebab, CiEdit, CiShare2 } from "react-icons/ci"
+import { CiMenuKebab, CiEdit, CiShare2, CiCamera } from "react-icons/ci"
 import { FcGoogle } from "react-icons/fc"
 import { FaLocationDot } from "react-icons/fa6"
 import { FiSend } from "react-icons/fi";
@@ -205,6 +205,11 @@ export default function Icon(props) {
             id: 32,
             name: 'send-message-icon',
             icon: <IoSend className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 33,
+            name: "camera-icon",
+            icon: <CiCamera className='text-white text-md md:text-1xl' />
         }
     ]
 
