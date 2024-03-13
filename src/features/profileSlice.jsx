@@ -37,7 +37,7 @@ export const otherProfile = createAsyncThunk(
     async(pk, { rejectWithValue }) => {
         try {
             const { data } = await axios.get(
-                `profile/${pk}`
+                `profile/${pk}/`
             )
 
             if(data.status === 200) {

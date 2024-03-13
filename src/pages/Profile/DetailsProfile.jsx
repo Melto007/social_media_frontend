@@ -3,6 +3,7 @@ import MainContainer from "../../components/MainContainer"
 import AvatarComponent from "../../components/AvatarComponent"
 import { useDispatch, useSelector } from 'react-redux'
 import { profileDetails, otherProfile } from '../../features/profileSlice'
+import { detailedProfile } from '../../features/detailProfileSlice'
 import { createProfileImage } from '../../features/profilepicSlice'
 import LoadingComponent from '../../components/LoadingComponent'
 import Heading1 from '../../components/Heading1'
@@ -50,6 +51,7 @@ export default function DetailsProfile() {
     useEffect(() => {
         if(createSuccess) {
             dispatch(otherProfile(pk))
+            dispatch(detailedProfile())
         }
     }, [createSuccess])
 

@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../features/userSlice'
 import { profileDetails } from '../../features/profileSlice'
 import { googleLogout } from '@react-oauth/google'
+import { detailedProfile } from '../../features/detailProfileSlice'
 
 export default function MenuNav() {
     const navigate = useNavigate()
@@ -30,9 +31,12 @@ export default function MenuNav() {
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, profile } = profileSlice
 
+    const detailProfileSlice = useSelector(state => state.detailProfileSlice)
+    const { profileSuccess, profileSave } = detailProfileSlice
+
     useEffect(() => {
         (async () => {
-            dispatch(profileDetails())
+            dispatch(detailedProfile())
         })()
     }, [])
 
@@ -52,10 +56,10 @@ export default function MenuNav() {
                             <div className='sticky top-0'>
                                 <div className='px-6 py-4'>
                                     <UserComponent
-                                        success={isSuccess}
-                                        username={isSuccess && profile.data.user.name}
-                                        email={isSuccess && profile.data.user.email}
-                                        file={isSuccess && profile.data.url}
+                                        success={profileSuccess}
+                                        username={profileSuccess && profileSave.data.user.name}
+                                        email={profileSuccess && profileSave.data.user.email}
+                                        file={profileSuccess && profileSave.data.url}
                                     />
                                     <div className='flex justify-between items-center text-sm py-4'>
                                         <Links path='/' name="234 Followers"/>
@@ -94,7 +98,7 @@ export default function MenuNav() {
                                         <AvatarComponent
                                             color="primary"
                                             size="md"
-                                            file={isSuccess ? profile.data.url : undefined}
+                                            file={profileSuccess ? profileSave.data.url : undefined}
                                             onClick={() => setIsTrendingMenu(!isTrendingMenu)}
                                         />
                                     </Link>
