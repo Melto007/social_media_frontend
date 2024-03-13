@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import MainContainer from "../../components/MainContainer"
 import AvatarComponent from "../../components/AvatarComponent"
 import { useDispatch, useSelector } from 'react-redux'
-import { profileDetails } from '../../features/profileSlice'
+import { profileDetails, otherProfile } from '../../features/profileSlice'
+import { createProfileImage } from '../../features/profilepicSlice'
 import LoadingComponent from '../../components/LoadingComponent'
 import Heading1 from '../../components/Heading1'
 import Paragraph from '../../components/Paragraph'
@@ -15,11 +16,14 @@ import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react
 import 'react-image-crop/dist/ReactCrop.css'
 
 import setCanvasPreview from './setCanvasPreview'
+import { useParams } from 'react-router-dom'
 
 const ASPECT_RATIO = 1
 const MIN_DIMENSION = 100
 
 export default function DetailsProfile() {
+    const { pk } = useParams()
+
     const [ previewImage, setpreviewImage ] = useState(null)
     const [ crop, setCrop ] = useState()
     const [ error, setError ] = useState(null)
@@ -34,9 +38,24 @@ export default function DetailsProfile() {
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, isLoading, profile } = profileSlice
 
+    const profilepicSlice = useSelector(state => state.profilepicSlice)
+    const { isSuccess: createSuccess, createLoading, profilePic, isError } = profilepicSlice
+
+    let buttons = <ButtonComponent name="submit" size="md" className="bg-white text-black" radius="full" onClick={onSubmitHandler} />
+
+    if(createLoading) {
+        buttons = <ButtonComponent isLoading name="submit" size="md" className="bg-white text-black" radius="full" onClick={onSubmitHandler} />
+    }
+
+    useEffect(() => {
+        if(createSuccess) {
+            dispatch(otherProfile(pk))
+        }
+    }, [createSuccess])
+
     useEffect(() => {
         (async () => {
-            dispatch(profileDetails())
+            dispatch(otherProfile(pk))
         })()
     }, [])
 
@@ -69,6 +88,11 @@ export default function DetailsProfile() {
         )
         const centeredCrop = centerCrop(crop, width, height)
         setCrop(centeredCrop)
+    }
+
+    function onSubmitHandler() {
+        const datas = {'image': previewCanvasRef.current.toDataURL()}
+        dispatch(createProfileImage({ pk, datas }))
     }
 
     return (
@@ -228,16 +252,18 @@ export default function DetailsProfile() {
                             )}
 
                             {crop && (
-                                <canvas
-                                    ref={previewCanvasRef}
-                                    className='w-full h-[15em]'
-                                />
+                                <div className='flex justify-center'>
+                                    <canvas
+                                        ref={previewCanvasRef}
+                                        className='w-[8em] h-[8em] rounded-full'
+                                    />
+                                </div>
                             )}
 
                             <ButtonComponent
-                                name="submit"
+                                name="crop image"
                                 size="md"
-                                className="bg-white text-black"
+                                className="bg-blue-600 text-white"
                                 radius="full"
                                 onClick={() => {
                                     setCanvasPreview(
@@ -251,6 +277,12 @@ export default function DetailsProfile() {
                                     )
                                 }}
                             />
+
+                            {buttons}
+                            <div className='text-center'>
+                                {createSuccess && <span className='text-green-500 text-sm'>{profilePic.data}</span>}
+                                {isError && <span className='text-red-500 text-sm'>{isError.message}</span>}
+                            </div>
                         </div>
                     </>
                 }

@@ -29,7 +29,7 @@ export default function Profile() {
     }, [isSuccess, pk])
 
     function handleEdit() {
-        navigate('/home/profileDetails/:id')
+        navigate(`/home/profileDetails/${profile.data.id}`)
     }
 
     let buttons = <ButtonComponent color="primary" name="follow" radius="full" size="sm" />
