@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import MainContainer from "../../components/MainContainer"
 import AvatarComponent from "../../components/AvatarComponent"
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,10 +11,21 @@ import ModalComponent from '../../components/ModalComponent'
 import { useDisclosure, Input, Textarea } from '@nextui-org/react'
 import LoadingContainer from '../../components/LoadingContainer'
 import Icon from '../../components/Icon'
-import { Image } from '@nextui-org/react'
+import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
+
+import setCanvasPreview from './setCanvasPreview'
+
+const ASPECT_RATIO = 1
+const MIN_DIMENSION = 100
 
 export default function DetailsProfile() {
-    const [ changeImage, setChangeImage ] = useState()
+    const [ previewImage, setpreviewImage ] = useState(null)
+    const [ crop, setCrop ] = useState()
+    const [ error, setError ] = useState(null)
+
+    const imgRef = useRef(null)
+    const previewCanvasRef = useRef(null)
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure()
@@ -30,7 +41,34 @@ export default function DetailsProfile() {
     }, [])
 
     function handleFiles(e) {
-        setChangeImage(URL.createObjectURL(e.target.files[0]))
+        const file = e.target.files[0]
+
+        if(!file) return
+
+        setpreviewImage(URL.createObjectURL(file))
+    }
+
+    function onImageLoad(e) {
+        const { width, height, naturalWidth, naturalHeight } = e.currentTarget
+        const cropWidthPercentage = (MIN_DIMENSION / width) * 100
+
+        if(naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
+            setError("Image must be at least 150 x 150pixels")
+            setpreviewImage(null)
+            return
+        }
+
+        const crop = makeAspectCrop(
+            {
+                unit: "%",
+                width: cropWidthPercentage
+            },
+            ASPECT_RATIO,
+            width,
+            height
+        )
+        const centeredCrop = centerCrop(crop, width, height)
+        setCrop(centeredCrop)
     }
 
     return (
@@ -159,25 +197,62 @@ export default function DetailsProfile() {
                 isOpen={isOpen2}
                 name="choose profile picture"
                 forms={
-                    <form>
+                    <>
                         <div className='flex flex-col gap-3'>
                             <input
                                 type="file"
                                 className='border-1 border-white p-2 rounded-lg'
                                 onChange={handleFiles}
                             />
-                            <Image
-                                alt="profile image"
-                                src={changeImage}
-                            />
+                            <div className='mx-2 my-2 text-red-500'>
+                                {error && <span className='text-sm'>{error}</span>}
+                            </div>
+                            {previewImage && (
+                                <ReactCrop
+                                    onChange={
+                                        (pixelCrop, precentCrop) => setCrop(precentCrop)
+                                    }
+                                    circularCrop
+                                    crop={crop}
+                                    keepSelection
+                                    aspect={ASPECT_RATIO}
+                                    minWidth={MIN_DIMENSION}
+                                >
+                                    <img
+                                        alt="profile-image"
+                                        ref={imgRef}
+                                        src={previewImage}
+                                        onLoad={onImageLoad}
+                                    />
+                                </ReactCrop>
+                            )}
+
+                            {crop && (
+                                <canvas
+                                    ref={previewCanvasRef}
+                                    className='w-full h-[15em]'
+                                />
+                            )}
+
                             <ButtonComponent
                                 name="submit"
                                 size="md"
                                 className="bg-white text-black"
                                 radius="full"
+                                onClick={() => {
+                                    setCanvasPreview(
+                                        imgRef.current,
+                                        previewCanvasRef.current,
+                                        convertToPixelCrop(
+                                            crop,
+                                            imgRef.current.width,
+                                            imgRef.current.height
+                                        )
+                                    )
+                                }}
                             />
                         </div>
-                    </form>
+                    </>
                 }
             />
         </>
