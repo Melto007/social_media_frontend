@@ -58,6 +58,7 @@ export default function DetailsProfile() {
     useEffect(() => {
         (async () => {
             dispatch(otherProfile(pk))
+            dispatch(detailedProfile())
         })()
     }, [])
 
