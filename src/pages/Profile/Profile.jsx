@@ -6,9 +6,10 @@ import Paragraph from "../../components/Paragraph";
 import { useEffect } from "react";
 import Icon from "../../components/Icon";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import { profileDetails, otherProfile } from '../../features/profileSlice'
 import { detailedProfile } from '../../features/detailProfileSlice'
+import Links from '../../components/Links'
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -54,7 +55,10 @@ export default function Profile() {
                                 file={isSuccess && profile.data.url}
                             />
                         </div>
-                        <div>
+                        <div className="flex justify-center items-center gap-2">
+                            {isSuccess && pk && (
+                                <Links path={`/home/message/${pk}`} name={<Icon icon="mail-icon" />} />
+                            )}
                             {buttons}
                         </div>
                     </div>

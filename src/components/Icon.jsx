@@ -19,7 +19,7 @@ import {
 import { FaMessage } from "react-icons/fa6"
 import { IoIosLogIn, IoMdDownload, IoMdNotifications, IoMdArrowRoundBack } from "react-icons/io"
 import { GoSignIn } from "react-icons/go";
-import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete } from "react-icons/md"
+import { MdGif, MdOutlineEmojiEmotions, MdReport, MdDelete, MdOutlineEmail } from "react-icons/md"
 import { IoCheckmarkCircleSharp, IoSend } from "react-icons/io5"
 import { FaRetweet } from "react-icons/fa"
 import { CiMenuKebab, CiEdit, CiShare2, CiCamera } from "react-icons/ci"
@@ -210,6 +210,11 @@ export default function Icon(props) {
             id: 33,
             name: "camera-icon",
             icon: <CiCamera className='text-white text-md md:text-1xl' />
+        },
+        {
+            id: 34,
+            name: "mail-icon",
+            icon: <MdOutlineEmail className='text-white text-md md:text-2xl' />
         }
     ]
 

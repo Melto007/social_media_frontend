@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import MainContainer from '../../components/MainContainer'
 import Followers from '../../components/Followers'
 import Icon from '../../components/Icon'
@@ -8,9 +8,24 @@ import {
 } from '@nextui-org/react'
 import ButtonComponent from '../../components/ButtonComponent'
 import Heading1 from '../../components/Heading1'
+import Links from '../../components/Links'
+import { useSelector, useDispatch } from 'react-redux'
+import { otherProfile, profileDetails } from '../../features/profileSlice'
+import { createProfileImage } from '../../features/profilepicSlice'
+import { useEffect } from 'react'
 
 export default function SingleMessage() {
     const { pk } = useParams()
+
+    const dispatch = useDispatch()
+    const profileSlice = useSelector(state => state.profileSlice)
+    const { isSuccess, profile } = profileSlice
+
+    useEffect(() => {
+        (async() => {
+            dispatch(otherProfile(pk))
+        })()
+    }, [])
 
     const datas = [
         {
@@ -199,7 +214,7 @@ export default function SingleMessage() {
     function handleMessageBox(item) {
         if(item.sender === true) {
             return (
-                <div className='py-3 w-[40%] rounded-xl px-4 bg-[#d7dede] text-black'>
+                <div className='py-3 w-[40%] rounded-xl px-4 bg-[#d7dede] text-black' key={item.id}>
                     <Heading1
                         heading={item.sender && item.message}
                     />
@@ -207,7 +222,7 @@ export default function SingleMessage() {
             )
         } else if(item.reciever === true) {
             return (
-                <div className='flex justify-end items-end'>
+                <div className='flex justify-end items-end' key={item.id}>
                     <div className='py-3 w-[40%] text-end rounded-xl px-4 bg-blue-500'>
                         <Heading1
                             heading={item.reciever && item.message}
@@ -223,11 +238,11 @@ export default function SingleMessage() {
             <div className='flex flex-col h-[90vh]'>
                 <div className='flex justify-between items-center h-16'>
                     <Followers
-                        file={filterUser.length !== 0 ? filterUser[0].file : 'UnauthorizedUser'}
-                        username={filterUser.length !== 0 ? filterUser[0].name : 'UnauthorizedUser'}
-                        email={filterUser.length !== 0 ? filterUser[0].email : 'UnauthorizedUser'}
+                        file={isSuccess ? profile.data.url : 'UnauthorizedUser'}
+                        username={isSuccess ? profile.data.user.name : 'UnauthorizedUser'}
+                        email={isSuccess ? profile.data.user.email : 'UnauthorizedUser'}
                     />
-                    <Link to='/home/message' className='text-lg md:text-2xl'><Icon icon="back-icon" /></Link>
+                    <Links path={`/home/profile/${pk}`} name={<Icon icon="back-icon" />} />
                 </div>
                 <ScrollShadow hideScrollBar className='h-[70vh]'>
                     <div className='py-2 flex flex-col'>
