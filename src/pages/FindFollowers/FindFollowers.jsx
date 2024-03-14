@@ -90,7 +90,7 @@ export default function FindFollowers() {
                     <div className='bg-neutral-900 w-full' key={item.id}>
                         <div className='p-2 mt-2 flex justify-between'>
                             <Followers
-                                pk={item.id}
+                                pk={item.slug}
                                 email={item.user.email}
                                 username={item.user.name}
                                 file={item.url}

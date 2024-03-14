@@ -8,6 +8,7 @@ import Icon from "../../components/Icon";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom'
 import { profileDetails, otherProfile } from '../../features/profileSlice'
+import { detailedProfile } from '../../features/detailProfileSlice'
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -22,14 +23,16 @@ export default function Profile() {
         (async() => {
             if(pk) {
                 dispatch(otherProfile(pk))
+                dispatch(detailedProfile())
             } else {
                 dispatch(profileDetails())
+                dispatch(detailedProfile())
             }
         })()
     }, [isSuccess, pk])
 
     function handleEdit() {
-        navigate(`/home/profileDetails/${profile.data.id}`)
+        navigate(`/home/profileDetails/${profile.data.slug}`)
     }
 
     let buttons = <ButtonComponent color="primary" name="follow" radius="full" size="sm" />
