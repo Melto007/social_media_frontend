@@ -10,6 +10,9 @@ import LoadingComponent from '../../components/LoadingComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import LoadingContainer from '../../components/LoadingContainer'
 
+import { followingCreate } from '../../features/followingSlice'
+import { detailedProfile } from '../../features/detailProfileSlice'
+
 export default function FindFollowers() {
     const myRef = useRef()
     const [ activeSearch, setActiveSearch ] = useState([])
@@ -18,9 +21,22 @@ export default function FindFollowers() {
     const friendSlice = useSelector(state => state.friendSlice)
     const { success, loading, friends } = friendSlice
 
+    const followingSlice = useSelector(state => state.followingSlice)
+    const { issuccess, isloading, iserror, following } = followingSlice
+
+    function onSubmitHandler(slug) {
+        let formData = new FormData()
+
+        formData.append('follower', slug)
+        dispatch(followingCreate(formData))
+    }
+
+    console.log(issuccess, following)
+
     useEffect(() => {
         (async () => {
             dispatch(getFollowers())
+            dispatch(detailedProfile())
         })()
     }, [])
 
@@ -95,12 +111,16 @@ export default function FindFollowers() {
                                 username={item.user.name}
                                 file={item.url}
                             />
-                            <ButtonComponent
-                                name="follow"
-                                size="sm"
-                                variant="bordered"
-                                radius="full"
-                            />
+                            {isloading ? (
+                                <ButtonComponent isLoading name="follow" size="sm" variant="bordered" radius="full" onClick={() => onSubmitHandler(item.slug)} />
+                            ) : (
+                                <ButtonComponent name="follow" size="sm" variant="bordered" radius="full" onClick={() => onSubmitHandler(item.slug)} />
+                            )}
+                            {iserror && (
+                                <div className='mx-2 my-2 text-red-500'>
+                                    <span className='text-sm'>{iserror.message}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}

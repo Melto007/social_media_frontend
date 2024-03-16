@@ -6,6 +6,7 @@ import socialLoginSlice from '../features/socialLoginSlice'
 import friendSlice from '../features/followersSlice'
 import profilepicSlice from '../features/profilepicSlice'
 import detailProfileSlice from '../features/detailProfileSlice'
+import followingSlice from '../features/followingSlice'
 
 const store = configureStore({
     reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
         socialLoginSlice: socialLoginSlice,
         friendSlice: friendSlice,
         profilepicSlice: profilepicSlice,
-        detailProfileSlice: detailProfileSlice
+        detailProfileSlice: detailProfileSlice,
+        followingSlice: followingSlice
     }
 })
 
