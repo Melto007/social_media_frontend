@@ -12,7 +12,7 @@ import LoadingContainer from '../../components/LoadingContainer'
 
 import { useNavigate } from 'react-router-dom'
 
-import { followingCreate, followingList } from '../../features/followingSlice'
+import { followingCreate, followingList, followingDelete } from '../../features/followingSlice'
 import { detailedProfile } from '../../features/detailProfileSlice'
 
 export default function FindFollowers() {
@@ -36,7 +36,7 @@ export default function FindFollowers() {
     }
 
     function onUnfollowHandler(slug) {
-        console.log("success", slug)
+        dispatch(followingDelete(slug))
     }
 
     useEffect(() => {
@@ -125,9 +125,13 @@ export default function FindFollowers() {
                                 file={item.url}
                             />
                             {following.length !== 0 && following.indexOf(item.user.id) !== -1 ? (
-                                <ButtonComponent name="unfollow" size="sm" variant="bordered" color="danger" radius="full" onClick={() => onUnfollowHandler(item.slug)} />
+                                isloading && following.indexOf(item.user.id) !== -1 ? (
+                                    <ButtonComponent isLoading name="unfollow" size="sm" variant="bordered" color="danger" radius="full" onClick={() => onUnfollowHandler(item.user.id)} />
+                                ) : (
+                                    <ButtonComponent name="unfollow" size="sm" variant="bordered" color="danger" radius="full" onClick={() => onUnfollowHandler(item.user.id)} />
+                                )
                             ) : (
-                                isloading ? (
+                                isloading && following.indexOf(item.user.id) !== -1 ? (
                                     <ButtonComponent isLoading name="follow" size="sm" variant="bordered" radius="full" onClick={() => onFollowHandler(item.slug)} />
                                 ) : (
                                     <ButtonComponent name="follow" size="sm" variant="bordered" radius="full" onClick={() => onFollowHandler(item.slug)} />

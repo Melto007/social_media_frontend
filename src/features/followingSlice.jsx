@@ -53,6 +53,28 @@ export const followingList = createAsyncThunk(
     }
 )
 
+export const followingDelete = createAsyncThunk(
+    "followingDelete",
+    async(slug, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.delete(
+                `following/${slug}/`
+            )
+
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 400) {
+                return rejectWithValue(data)
+            }
+        }catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
 export const followingSlice = createSlice({
     name: "followingSlice",
     initialState,
@@ -67,9 +89,7 @@ export const followingSlice = createSlice({
             state.issuccess = true
             state.following = []
             action.payload.data.map(item => {
-                if(state.following.indexOf(item) !== -1) {
-                    console.log("exists")
-                } else {
+                if(state.following.indexOf(item) === -1) {
                     state.following.push(item.following.id)
                 }
             })
@@ -87,14 +107,30 @@ export const followingSlice = createSlice({
             state.issuccess = true
             state.following = []
             action.payload.data.map(item => {
-                if(state.following.indexOf(item) !== -1) {
-                    console.log("exists")
-                } else {
+                if(state.following.indexOf(item) === -1) {
                     state.following.push(item.following.id)
                 }
             })
         })
         builder.addCase(followingList.rejected, (state, action) => {
+            state.isloading = false
+            state.iserror = action.payload
+        })
+        builder.addCase(followingDelete.pending, (state) => {
+            state.isloading = true
+            state.issuccess = false
+        })
+        builder.addCase(followingDelete.fulfilled, (state, action) => {
+            state.isloading = false
+            state.issuccess = true
+            state.following = []
+            action.payload.data.map(item => {
+                if(state.following.indexOf(item) === -1) {
+                    state.following.push(item.following.id)
+                }
+            })
+        })
+        builder.addCase(followingDelete.rejected, (state, action) => {
             state.isloading = false
             state.iserror = action.payload
         })

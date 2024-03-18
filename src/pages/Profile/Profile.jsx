@@ -10,7 +10,7 @@ import {  useNavigate, useParams } from 'react-router-dom'
 import { profileDetails, otherProfile } from '../../features/profileSlice'
 import { detailedProfile } from '../../features/detailProfileSlice'
 import Links from '../../components/Links'
-import { followingList, followingCreate } from '../../features/followingSlice'
+import { followingList, followingCreate, followingDelete } from '../../features/followingSlice'
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -45,18 +45,28 @@ export default function Profile() {
         dispatch(followingCreate(formData))
     }
 
+    function onUnfollowHandler(slug) {
+        dispatch(followingDelete(slug))
+    }
+
     function handleEdit() {
         navigate(`/home/profileDetails/${profile.data.slug}`)
     }
 
-    let buttons = <ButtonComponent className="bg-white text-black" name="follow" radius="full" size="sm" onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
+    let buttons = <ButtonComponent className="bg-white text-black" name="follow" radius="full" size="sm"
+    onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
 
     if(isloading) {
-        buttons = <ButtonComponent isLoading className="bg-white text-black" name="follow" radius="full" size="sm" onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
+        buttons = <ButtonComponent isLoading className="bg-white text-black" name="follow" radius="full" size="sm"
+        onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
     }
 
     if(following.length !== 0 && following.indexOf(isSuccess && profile.data.user.id) !== -1) {
-        buttons = <ButtonComponent variant="bordered" color="danger" name="unfollow" radius="full" size="sm"  />
+        if(isloading) {
+            buttons = <ButtonComponent isLoading variant="bordered" color="danger" name="unfollow" radius="full" size="sm" onClick={() => onUnfollowHandler(profile.data.user.id)} />
+        } else {
+            buttons = <ButtonComponent variant="bordered" color="danger" name="unfollow" radius="full" size="sm" onClick={() => onUnfollowHandler(profile.data.user.id)} />
+        }
     }
 
     if(isSuccess && !pk) {
@@ -85,7 +95,9 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-2">
                         <Paragraph
-                            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi itaque et minima ab voluptatum repellendus possimus repudiandae debitis veniam laboriosam culpa voluptate cum vero maiores, modi molestiae quae harum distinctio."
+                            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi itaque et
+                            minima ab voluptatum repellendus possimus repudiandae debitis veniam laboriosam
+                            culpa voluptate cum vero maiores, modi molestiae quae harum distinctio."
                         />
                         <div className="flex gap-1">
                             <Icon
