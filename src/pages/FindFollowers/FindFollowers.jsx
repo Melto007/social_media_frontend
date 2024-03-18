@@ -10,12 +10,16 @@ import LoadingComponent from '../../components/LoadingComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import LoadingContainer from '../../components/LoadingContainer'
 
-import { followingCreate } from '../../features/followingSlice'
+import { useNavigate } from 'react-router-dom'
+
+import { followingCreate, followingList } from '../../features/followingSlice'
 import { detailedProfile } from '../../features/detailProfileSlice'
 
 export default function FindFollowers() {
     const myRef = useRef()
+    const navigate = useNavigate()
     const [ activeSearch, setActiveSearch ] = useState([])
+    const [ filterFollower, setFilterFollower ] = useState([])
     const dispatch = useDispatch()
 
     const friendSlice = useSelector(state => state.friendSlice)
@@ -24,19 +28,22 @@ export default function FindFollowers() {
     const followingSlice = useSelector(state => state.followingSlice)
     const { issuccess, isloading, iserror, following } = followingSlice
 
-    function onSubmitHandler(slug) {
+    function onFollowHandler(slug) {
         let formData = new FormData()
 
         formData.append('follower', slug)
         dispatch(followingCreate(formData))
     }
 
-    console.log(issuccess, following)
+    function onUnfollowHandler(slug) {
+        console.log("success", slug)
+    }
 
     useEffect(() => {
         (async () => {
             dispatch(getFollowers())
             dispatch(detailedProfile())
+            dispatch(followingList())
         })()
     }, [])
 
@@ -49,14 +56,20 @@ export default function FindFollowers() {
         }
 
         setActiveSearch(
-            friends.data.filter(value => value.name.toLowerCase().includes(searchWord.toLowerCase()))
+            friends.data.filter(value => value.user.name.toLowerCase().includes(searchWord.toLowerCase()))
         )
     }
 
     function handleSearchItem(item) {
         if(Object.keys(item).length !== 0) {
-            myRef.current.value = item.name
+            myRef.current.value = item.user.name
             setActiveSearch([])
+        }
+    }
+
+    function onHandleSearch() {
+        if(myRef.current.value !== "") {
+            navigate(`/home/profile/${myRef.current.value}`)
         }
     }
 
@@ -78,16 +91,16 @@ export default function FindFollowers() {
                         ref={myRef}
                         onChange={handleSearchFriend}
                     />
-                    <button className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-neutral-700 rounded-full">
+                    <button className="absolute right-1 top-1/2 -translate-y-1/2 p-2 bg-neutral-700 rounded-full" onClick={onHandleSearch}>
                         <Icon icon="search-icon" />
                     </button>
 
                     {
                         activeSearch.length > 0 && (
-                            <div className="absolute w-full bg-neutral-800 rounded-lg mt-1 p-2 left-1/2 -translate-x-1/2 cursor-pointer flex flex-col gap-2">
+                            <div className="absolute w-full bg-neutral-800 rounded-lg mt-1 p-2 left-1/2 -translate-x-1/2 cursor-pointer flex flex-col gap-2 z-10">
                                 {
                                     activeSearch.slice(0, 15).map((item, key) => (
-                                        <span key={key} onClick={() => handleSearchItem(item)}>{item.name}</span>
+                                        <span key={key} onClick={() => handleSearchItem(item)}>{item.user.name}</span>
                                     ))
                                 }
                             </div>
@@ -104,22 +117,21 @@ export default function FindFollowers() {
                 }
                 {success && friends.data.map(item => (
                     <div className='bg-neutral-900 w-full' key={item.id}>
-                        <div className='p-2 mt-2 flex justify-between'>
+                        <div className='p-2 mt-2 flex justify-between z-0'>
                             <Followers
                                 pk={item.slug}
                                 email={item.user.email}
                                 username={item.user.name}
                                 file={item.url}
                             />
-                            {isloading ? (
-                                <ButtonComponent isLoading name="follow" size="sm" variant="bordered" radius="full" onClick={() => onSubmitHandler(item.slug)} />
+                            {following.length !== 0 && following.indexOf(item.user.id) !== -1 ? (
+                                <ButtonComponent name="unfollow" size="sm" variant="bordered" color="danger" radius="full" onClick={() => onUnfollowHandler(item.slug)} />
                             ) : (
-                                <ButtonComponent name="follow" size="sm" variant="bordered" radius="full" onClick={() => onSubmitHandler(item.slug)} />
-                            )}
-                            {iserror && (
-                                <div className='mx-2 my-2 text-red-500'>
-                                    <span className='text-sm'>{iserror.message}</span>
-                                </div>
+                                isloading ? (
+                                    <ButtonComponent isLoading name="follow" size="sm" variant="bordered" radius="full" onClick={() => onFollowHandler(item.slug)} />
+                                ) : (
+                                    <ButtonComponent name="follow" size="sm" variant="bordered" radius="full" onClick={() => onFollowHandler(item.slug)} />
+                                )
                             )}
                         </div>
                     </div>

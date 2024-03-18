@@ -5,7 +5,7 @@ const initialState = {
     isloading: false,
     issuccess: false,
     iserror: null,
-    following: null
+    following: []
 }
 
 export const followingCreate = createAsyncThunk(
@@ -31,6 +31,28 @@ export const followingCreate = createAsyncThunk(
     }
 )
 
+export const followingList = createAsyncThunk(
+    "followingList",
+    async(args, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.get(
+                'following/'
+            )
+
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 400) {
+                return rejectWithValue(data)
+            }
+        }catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
 export const followingSlice = createSlice({
     name: "followingSlice",
     initialState,
@@ -38,13 +60,41 @@ export const followingSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(followingCreate.pending, (state) => {
             state.isloading = true
+            state.issuccess = false
         })
         builder.addCase(followingCreate.fulfilled, (state, action) => {
             state.isloading = false
             state.issuccess = true
-            state.following = action.payload
+            state.following = []
+            action.payload.data.map(item => {
+                if(state.following.indexOf(item) !== -1) {
+                    console.log("exists")
+                } else {
+                    state.following.push(item.following.id)
+                }
+            })
         })
         builder.addCase(followingCreate.rejected, (state, action) => {
+            state.isloading = false
+            state.iserror = action.payload
+        })
+        builder.addCase(followingList.pending, (state) => {
+            state.isloading = true
+            state.issuccess = false
+        })
+        builder.addCase(followingList.fulfilled, (state, action) => {
+            state.isloading = false
+            state.issuccess = true
+            state.following = []
+            action.payload.data.map(item => {
+                if(state.following.indexOf(item) !== -1) {
+                    console.log("exists")
+                } else {
+                    state.following.push(item.following.id)
+                }
+            })
+        })
+        builder.addCase(followingList.rejected, (state, action) => {
             state.isloading = false
             state.iserror = action.payload
         })

@@ -10,6 +10,7 @@ import {  useNavigate, useParams } from 'react-router-dom'
 import { profileDetails, otherProfile } from '../../features/profileSlice'
 import { detailedProfile } from '../../features/detailProfileSlice'
 import Links from '../../components/Links'
+import { followingList, followingCreate } from '../../features/followingSlice'
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -20,23 +21,43 @@ export default function Profile() {
     const profileSlice = useSelector(state => state.profileSlice)
     const { isSuccess, profile } = profileSlice
 
+    const followingSlice = useSelector(state => state.followingSlice)
+    const { issuccess, isloading, following, iserror } = followingSlice
+
     useEffect(() => {
         (async() => {
             if(pk) {
                 dispatch(otherProfile(pk))
                 dispatch(detailedProfile())
+                dispatch(followingList())
             } else {
                 dispatch(profileDetails())
                 dispatch(detailedProfile())
+                dispatch(followingList())
             }
         })()
     }, [isSuccess, pk])
+
+    function onHandleFollow(name) {
+        const formData = new FormData()
+
+        formData.append('follower', name)
+        dispatch(followingCreate(formData))
+    }
 
     function handleEdit() {
         navigate(`/home/profileDetails/${profile.data.slug}`)
     }
 
-    let buttons = <ButtonComponent color="primary" name="follow" radius="full" size="sm" />
+    let buttons = <ButtonComponent className="bg-white text-black" name="follow" radius="full" size="sm" onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
+
+    if(isloading) {
+        buttons = <ButtonComponent isLoading className="bg-white text-black" name="follow" radius="full" size="sm" onClick={() => onHandleFollow(isSuccess && profile.data.user.name)} />
+    }
+
+    if(following.length !== 0 && following.indexOf(isSuccess && profile.data.user.id) !== -1) {
+        buttons = <ButtonComponent variant="bordered" color="danger" name="unfollow" radius="full" size="sm"  />
+    }
 
     if(isSuccess && !pk) {
         buttons = <ButtonComponent variant="bordered" name="Edit" radius="full" size="sm" onClick={handleEdit} />
