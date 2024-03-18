@@ -87,7 +87,7 @@ export default function Profile() {
                             />
                         </div>
                         <div className="flex justify-center items-center gap-2">
-                            {isSuccess && pk && (
+                            {isSuccess && pk && following.indexOf(isSuccess && profile.data.user.id) !== -1 && (
                                 <Links path={`/home/message/${pk}`} name={<Icon icon="mail-icon" />} />
                             )}
                             {buttons}
