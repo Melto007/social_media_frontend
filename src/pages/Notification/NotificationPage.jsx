@@ -35,6 +35,7 @@ export default function NotificationPage() {
                         <AvatarComponent
                             color="primary"
                             size="md"
+                            file={item.userProfile.url}
                         />
                         <Heading1
                             heading={item.following.name}

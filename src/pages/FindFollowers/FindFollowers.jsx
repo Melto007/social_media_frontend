@@ -29,6 +29,7 @@ export default function FindFollowers() {
     const { issuccess, isloading, iserror, following } = followingSlice
 
     function onFollowHandler(slug) {
+        console.log(slug)
         let formData = new FormData()
 
         formData.append('follower', slug)
