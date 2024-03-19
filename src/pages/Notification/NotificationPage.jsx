@@ -21,7 +21,7 @@ export default function NotificationPage() {
             dispatch(notificationView())
             dispatch(profileDetails())
         })()
-    }, [])
+    }, [issuccess])
 
     function onNotificationHandler(pk, name) {
         dispatch(notificationUpdate(pk))
@@ -38,7 +38,7 @@ export default function NotificationPage() {
                 )
             }
             <MainContainer>
-                {issuccess && notification.data.map(item => item.status ? (
+                {issuccess && notification.data.map(item => (
                     <div key={item.id} className="py-3 flex items-center gap-2">
                         <AvatarComponent
                             color="primary"
@@ -53,10 +53,6 @@ export default function NotificationPage() {
                         <Heading1
                             heading="is following you"
                         />
-                    </div>
-                ) : (
-                    <div className="flex justify-center items-center h-[100vh]">
-                        <Paragraph content="Nofication is not found" />
                     </div>
                 ))}
             </MainContainer>
