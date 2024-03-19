@@ -3,13 +3,16 @@ import Heading1 from "../../components/Heading1";
 import AvatarComponent from "../../components/AvatarComponent";
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from "react";
-import { notificationView } from '../../features/notificationSlice'
+import { notificationView, notificationUpdate } from '../../features/notificationSlice'
 import { profileDetails } from '../../features/profileSlice'
 import LoadingComponent from "../../components/LoadingComponent";
 import LoadingContainer from '../../components/LoadingContainer'
+import { useNavigate } from 'react-router-dom'
+import Paragraph from '../../components/Paragraph'
 
 export default function NotificationPage() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const notificationSlice = useSelector(state => state.notificationSlice)
     const { issuccess, isloading, iserror, notification } = notificationSlice
 
@@ -19,6 +22,11 @@ export default function NotificationPage() {
             dispatch(profileDetails())
         })()
     }, [])
+
+    function onNotificationHandler(pk, name) {
+        dispatch(notificationUpdate(pk))
+        navigate(`/home/profile/${name}`)
+    }
 
     return (
         <>
@@ -30,7 +38,7 @@ export default function NotificationPage() {
                 )
             }
             <MainContainer>
-                {issuccess && notification.data.map(item => (
+                {issuccess && notification.data.map(item => item.status ? (
                     <div key={item.id} className="py-3 flex items-center gap-2">
                         <AvatarComponent
                             color="primary"
@@ -39,11 +47,16 @@ export default function NotificationPage() {
                         />
                         <Heading1
                             heading={item.following.name}
-                            className="font-bold"
+                            className="font-bold cursor-pointer"
+                            onClick={() => onNotificationHandler(item.id, item.following.name)}
                         />
                         <Heading1
                             heading="is following you"
                         />
+                    </div>
+                ) : (
+                    <div className="flex justify-center items-center h-[100vh]">
+                        <Paragraph content="Nofication is not found" />
                     </div>
                 ))}
             </MainContainer>

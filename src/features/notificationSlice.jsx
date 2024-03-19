@@ -30,6 +30,29 @@ export const notificationView = createAsyncThunk(
     }
 )
 
+
+export const notificationUpdate = createAsyncThunk(
+    "notificationUpdate",
+    async(pk, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.put(
+                `notification/${pk}/`
+            )
+
+            if(data.status === 200) {
+                return data
+            }
+
+            if(data.status === 404) {
+                return rejectWithValue(data)
+            }
+        } catch(error) {
+            const data = ['Oops something went wrong...']
+            return rejectWithValue(data)
+        }
+    }
+)
+
 export const notificationSlice = createSlice({
     name: "notificationSlice",
     initialState,
