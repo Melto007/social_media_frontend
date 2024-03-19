@@ -9,21 +9,64 @@ import DividerComponent from '../../components/DividerComponent'
 import Cards from './Cards'
 import MainContainer from '../../components/MainContainer'
 import ModalComponent from '../../components/ModalComponent'
-import ReactCrop from 'react-image-crop'
-import { useState } from 'react'
+import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react-image-crop'
+import { useState, useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import setCanvasPreview from './setCanvasPreview'
 
 const ASPECT_RATIO = 1
-const MIN_DIMENSION = 100
+const MIN_DIMENSION = 150
 
 export default function HomePage() {
     const [ previewImage, setPreviewImage ] = useState(null)
+    const imgRef = useRef(null)
+    const previewCanvasRef = useRef(null)
+
     const { handleSubmit, register, formState: { errors }, control } = useForm()
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     const [ crop, setCrop ] = useState()
 
+    function handleFiles(e) {
+        const file = e.target.files[0]
+
+        if(!file) return
+
+        setPreviewImage(URL.createObjectURL(file))
+    }
+
+    function onImageLoad(e) {
+        const { width, height, naturalWidth, naturalHeight } = e.currentTarget
+        const cropWidthPercentage = (MIN_DIMENSION / width) * 100
+
+        if(naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
+            setPreviewImage(null)
+            return
+        }
+
+        const crop = makeAspectCrop(
+            {
+                unit: "%",
+                width: cropWidthPercentage
+            },
+            ASPECT_RATIO,
+            width,
+            height
+        )
+        const centeredCrop = centerCrop(crop, width, height)
+        setCrop(centeredCrop)
+    }
+
     function onSubmitHandler(data) {
+        setCanvasPreview(
+            imgRef.current,
+            previewCanvasRef.current,
+            convertToPixelCrop(
+                crop,
+                imgRef.current.width,
+                imgRef.current.height
+            )
+        )
         console.log(data)
     }
 
@@ -82,27 +125,10 @@ export default function HomePage() {
                                 {errors.tags?.message && <span className='text-sm'>{errors.tags?.message}</span>}
                             </div>
                             <div>
-                                <Controller
-                                    control={control}
-                                    name={"picture"}
-                                    rules={{ required: "this field should not be empty" }}
-                                    render={({ field: { value, onChange, ...field } }) => {
-                                    return (
-                                        <input
-                                            className='py-4 px-2 rounded-lg w-full'
-                                            {...field}
-                                            value={value?.fileName}
-                                            onChange={(event) => {
-                                                const file = event.target.files[0]
-                                                if(!file) return
-                                                setPreviewImage(URL.createObjectURL(file))
-                                                onChange(file)
-                                            }}
-                                            type="file"
-                                            id="picture"
-                                        />
-                                    );
-                                    }}
+                                <input
+                                    type="file"
+                                    className='px-2 py-4 rounded-lg'
+                                    onChange={handleFiles}
                                 />
                             </div>
                             <div className={errors.picture?.message ? 'mx-2 text-red-500' : 'hidden'}>
@@ -111,19 +137,52 @@ export default function HomePage() {
                             <div>
                                 {previewImage && (
                                     <ReactCrop
-                                        circularCrop
+                                        onChange={
+                                            (pixelCrop, precentCrop) => setCrop(precentCrop)
+                                        }
                                         crop={crop}
-                                        aspect={ASPECT_RATIO}
-                                        maxWidth={MIN_DIMENSION}
                                         keepSelection
+                                        aspect={ASPECT_RATIO}
+                                        minWidth={MIN_DIMENSION}
                                     >
                                         <img
                                             alt="profile-image"
+                                            ref={imgRef}
                                             src={previewImage}
+                                            onLoad={onImageLoad}
                                         />
                                     </ReactCrop>
                                 )}
                             </div>
+                            <div>
+                                {crop && (
+                                    <div className='hidden'>
+                                        <canvas
+                                            ref={previewCanvasRef}
+                                            className='w-[8em] h-[8em]'
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            {/* <div>
+                                <ButtonComponent
+                                    name="crop image"
+                                    size="md"
+                                    className="bg-blue-600 text-white w-full"
+                                    radius="full"
+                                    onClick={() => {
+                                        setCanvasPreview(
+                                            imgRef.current,
+                                            previewCanvasRef.current,
+                                            convertToPixelCrop(
+                                                crop,
+                                                imgRef.current.width,
+                                                imgRef.current.height
+                                            )
+                                        )
+                                    }}
+                                />
+                            </div> */}
                             <div>
                                 <ButtonComponent
                                     className="bg-white text-black uppercase rounded-full w-full font-bold"
