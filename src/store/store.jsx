@@ -8,6 +8,7 @@ import profilepicSlice from '../features/profilepicSlice'
 import detailProfileSlice from '../features/detailProfileSlice'
 import followingSlice from '../features/followingSlice'
 import notificationSlice from '../features/notificationSlice'
+import postSlice from '../features/postSlice'
 
 const store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
         profilepicSlice: profilepicSlice,
         detailProfileSlice: detailProfileSlice,
         followingSlice: followingSlice,
-        notificationSlice: notificationSlice
+        notificationSlice: notificationSlice,
+        postSlice: postSlice
     }
 })
 

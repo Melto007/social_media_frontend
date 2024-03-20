@@ -8,7 +8,7 @@ import {
 import Icon from '../../components/Icon'
 
 export default function DropDown(props) {
-    const { id } = props
+    const { id, isSuccess, profile, user } = props
 
     {/** handle edit function */}
     function handleEdit(id) {
@@ -39,16 +39,21 @@ export default function DropDown(props) {
             color: "primary",
             name: "Report",
             content: <Icon icon="report-icon" />
-        },
-        {
-            id: 3,
-            onClick: () => handleDelete(id),
-            color: "danger",
-            class: "text-danger",
-            name: "Delete",
-            content: <Icon icon="delete-icon" />
         }
     ]
+
+    if(isSuccess && profile.data.id === user) {
+        dropItem.push(
+            {
+                id: 3,
+                onClick: () => handleDelete(id),
+                color: "danger",
+                class: "text-danger",
+                name: "Delete",
+                content: <Icon icon="delete-icon" />
+            }
+        )
+    }
 
     return (
         <Dropdown className='bg-neutral-900'>

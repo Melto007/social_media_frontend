@@ -7,82 +7,76 @@ import {
 } from '@nextui-org/react'
 import DropDown from './DropDown'
 import UserComponent from '../../components/UserComponent'
-import ButtonComponent from '../../components/ButtonComponent'
 import Icon from '../../components/Icon'
 import Paragraph from '../../components/Paragraph'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux"
+import { profileDetails } from '../../features/profileSlice'
 
 export default function Cards(props) {
     const navigate = useNavigate()
 
-    const tweets = [
-        {
-            id: 1,
-            content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
-            hashtag: '#FrontendWithMelto',
-            image: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-            follow: true
-        },
-        {
-            id: 2,
-            content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
-            hashtag: '#FrontendWithMelto',
-            image: 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
-            follow: false
-        },
-        {
-            id: 3,
-            content: 'Frontend developer and UI/UX enthusiast. Join me on this coding adventure!',
-            hashtag: '#FrontendWithMelto',
-            image: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D',
-            follow: true
-        }
-    ]
+    const { tweets, issuccess } = props
+
+    const dispatch = useDispatch()
+
+    const profileSlice = useSelector(state => state.profileSlice)
+    const { isSuccess, profile } = profileSlice
+
+    useEffect(() => {
+        (async() => {
+            dispatch(profileDetails())
+        })()
+    }, [])
 
     function handleComment(pk) {
-        navigate(`/home/command/${pk}`)
+        //
     }
+
+    console.log(isSuccess, profile)
 
     return (
         <>
-            {tweets.map(item => item.follow && (
+            {tweets && tweets.data.map(item => (
                 <Card
                     className='bg-neutral-900 border-solid border-1 border-gray-800 rounded-lg mb-2'
                     key={item.id}
                 >
                     <CardHeader className='text-white justify-between'>
                         <div>
-                            <UserComponent />
+                            <UserComponent
+                                success={issuccess}
+                                username={item.profile.user.name}
+                                email={item.profile.user.email}
+                                file={item.profile.url}
+                            />
                         </div>
                         <div className='flex items-center'>
-                            <ButtonComponent
-                                radius="full"
-                                variant="bordered"
-                                color={item.follow ? "danger" : "primary"}
-                                size="sm"
-                                name={item.follow ? "Unfollow" : "Follow"}
-                            />
                             <DropDown
                                 icon={<Icon icon="menu-icon" />}
                                 id={item.id}
+                                isSuccess={isSuccess}
+                                profile={profile}
+                                user={item.profile.user.id}
                             />
                         </div>
                     </CardHeader>
                     <CardBody>
                         <p className='text-white text-sm md:text-md'>
-                            {item.content}
+                            {item.post}
                         </p>
                         <span className="pt-2 text-blue-500 text-sm md:text-md">
-                            {item.hashtag}
+                            {item.tag !== null && `#${item.tag.tags}`}
                         </span>
                         <img
-                            className='mt-2 w-full min-h-12 rounded-xl'
+                            className='mt-2 w-full rounded-xl'
                             alt="post-image"
                             src={item.image}
                         />
                     </CardBody>
                     <CardFooter>
-                        <div className='flex  items-center'>
+                        <div className='flex items-center'>
                             <div className='flex items-center'>
                                 <Button
                                     className='border-none bg-transparent padding-0'

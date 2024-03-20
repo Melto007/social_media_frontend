@@ -10,14 +10,21 @@ import Cards from './Cards'
 import MainContainer from '../../components/MainContainer'
 import ModalComponent from '../../components/ModalComponent'
 import ReactCrop, { centerCrop, makeAspectCrop, convertToPixelCrop } from 'react-image-crop'
-import { useState, useRef } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useState, useRef, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import setCanvasPreview from './setCanvasPreview'
+import { useSelector, useDispatch } from 'react-redux'
+import { postView } from '../../features/postSlice'
+
+import LoadingComponent from '../../components/LoadingComponent'
+import LoadingContainer from '../../components/LoadingContainer'
 
 const ASPECT_RATIO = 1
 const MIN_DIMENSION = 150
 
 export default function HomePage() {
+    const dispatch = useDispatch()
+
     const [ previewImage, setPreviewImage ] = useState(null)
     const imgRef = useRef(null)
     const previewCanvasRef = useRef(null)
@@ -26,6 +33,15 @@ export default function HomePage() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     const [ crop, setCrop ] = useState()
+
+    const postSlice = useSelector(state => state.postSlice)
+    const { issuccess, isloading, post, iserror } = postSlice
+
+    useEffect(() => {
+        (async() => {
+            dispatch(postView())
+        })()
+    }, [issuccess])
 
     function handleFiles(e) {
         const file = e.target.files[0]
@@ -58,20 +74,31 @@ export default function HomePage() {
     }
 
     function onSubmitHandler(data) {
-        setCanvasPreview(
-            imgRef.current,
-            previewCanvasRef.current,
-            convertToPixelCrop(
-                crop,
-                imgRef.current.width,
-                imgRef.current.height
+        if(imgRef.current !== null && previewCanvasRef.current !== null) {
+            setCanvasPreview(
+                imgRef.current,
+                previewCanvasRef.current,
+                convertToPixelCrop(
+                    crop,
+                    imgRef.current.width,
+                    imgRef.current.height
+                )
             )
-        )
-        console.log(data)
+
+            data.image = previewCanvasRef.current.toDataURL()
+            console.log(data.image)
+        }
     }
 
     return (
         <>
+            {
+                isloading && (
+                    <LoadingContainer>
+                        <LoadingComponent />
+                    </LoadingContainer>
+                )
+            }
             <MainContainer>
                 <div className='flex justify-end items-center mt-2'>
                     <div>
@@ -83,7 +110,10 @@ export default function HomePage() {
                     </div>
                 </div>
                 <DividerComponent />
-                <Cards />
+                <Cards
+                    tweets={issuccess && post.length !== 0 && post}
+                    issuccess={issuccess}
+                />
             </MainContainer>
             <ModalComponent
                 isOpen={isOpen}
@@ -115,14 +145,9 @@ export default function HomePage() {
                                     variant="bordered"
                                     fullWidth="true"
                                     {
-                                        ...register('tags', {
-                                            required: "this field should not be empty"
-                                        })
+                                        ...register('tags')
                                     }
                                 />
-                            </div>
-                            <div className={errors.tags?.message ? 'mx-2 text-red-500' : 'hidden'}>
-                                {errors.tags?.message && <span className='text-sm'>{errors.tags?.message}</span>}
                             </div>
                             <div>
                                 <input
