@@ -20,10 +20,12 @@ import { profileDetails } from '../../features/profileSlice'
 import LoadingComponent from '../../components/LoadingComponent'
 import LoadingContainer from '../../components/LoadingContainer'
 
+import transition from '../../utils/transition'
+
 const ASPECT_RATIO = 1
 const MIN_DIMENSION = 150
 
-export default function HomePage() {
+function HomePage() {
     const dispatch = useDispatch()
 
     const [ previewImage, setPreviewImage ] = useState(null)
@@ -227,3 +229,5 @@ export default function HomePage() {
         </>
     )
 }
+
+export default HomePage

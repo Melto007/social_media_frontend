@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Card,
     CardHeader,
@@ -13,11 +14,11 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { profileDetails } from '../../features/profileSlice'
-import LoadingComponent from '../../components/LoadingComponent'
-import LoadingContainer from '../../components/LoadingContainer'
 
 export default function Cards(props) {
     const navigate = useNavigate()
+    const [ dataId, setDataId ] = useState(null)
+    const [ newTweet, setTweet ] = useState([])
 
     const { tweets, issuccess, onOpen, isloading } = props
 
@@ -55,11 +56,13 @@ export default function Cards(props) {
                         <div className='flex items-center'>
                             <DropDown
                                 icon={<Icon icon="menu-icon" />}
-                                dataId={item.id}
+                                setDataId={setDataId}
+                                itemId={item.id}
                                 isSuccess={isSuccess}
                                 profile={profile}
                                 user={item.profile.user.id}
                                 onOpen={onOpen}
+                                tweets={tweets}
                             />
                         </div>
                     </CardHeader>

@@ -10,31 +10,31 @@ import { useDispatch } from 'react-redux'
 import { postDelete, postView } from '../../features/postSlice'
 
 export default function DropDown(props) {
-    const { dataId, isSuccess, profile, user, onOpen } = props
+    const { setDataId, isSuccess, profile, user, onOpen, itemId } = props
 
     const dispatch = useDispatch()
 
     {/** handle edit function */}
-    function handleEdit(dataId) {
-        console.log(dataId)
+    function handleEdit(itemId) {
+        console.log(itemId)
         onOpen()
     }
 
     {/** handle report function */}
-    function handleReport(dataId) {
-        console.log(dataId)
+    function handleReport(itemId) {
+        console.log(itemId)
     }
 
     {/** handle delete function */}
-    function handleDelete(dataId) {
-        dispatch(postDelete(dataId))
-        dispatch(postView())
+    function handleDelete(itemId) {
+        // dispatch(postDelete(itemId))
+        setDataId(itemId)
     }
 
     const dropItem = [
         {
             id: 2,
-            onClick: () => handleReport(dataId),
+            onClick: () => handleReport(itemId),
             color: "primary",
             name: "Report",
             content: <Icon icon="report-icon" />
@@ -45,7 +45,7 @@ export default function DropDown(props) {
         dropItem.push(
             {
                 id: 1,
-                onClick: () => handleEdit(dataId),
+                onClick: () => handleEdit(itemId),
                 color: "primary",
                 name: "Edit",
                 content: <Icon icon="edit-icon" />
@@ -57,7 +57,7 @@ export default function DropDown(props) {
         dropItem.push(
             {
                 id: 3,
-                onClick: () => handleDelete(dataId),
+                onClick: () => handleDelete(itemId),
                 color: "danger",
                 class: "text-danger",
                 name: "Delete",
