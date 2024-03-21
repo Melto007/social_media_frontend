@@ -6,36 +6,35 @@ import {
     Button
 } from '@nextui-org/react'
 import Icon from '../../components/Icon'
+import { useDispatch } from 'react-redux'
+import { postDelete, postView } from '../../features/postSlice'
 
 export default function DropDown(props) {
-    const { id, isSuccess, profile, user } = props
+    const { dataId, isSuccess, profile, user, onOpen } = props
+
+    const dispatch = useDispatch()
 
     {/** handle edit function */}
-    function handleEdit(id) {
-        console.log(id)
+    function handleEdit(dataId) {
+        console.log(dataId)
+        onOpen()
     }
 
     {/** handle report function */}
-    function handleReport(id) {
-        console.log(id)
+    function handleReport(dataId) {
+        console.log(dataId)
     }
 
     {/** handle delete function */}
-    function handleDelete(id) {
-        console.log(id)
+    function handleDelete(dataId) {
+        dispatch(postDelete(dataId))
+        dispatch(postView())
     }
 
     const dropItem = [
         {
-            id: 1,
-            onClick: () => handleEdit(id),
-            color: "primary",
-            name: "Edit",
-            content: <Icon icon="edit-icon" />
-        },
-        {
             id: 2,
-            onClick: () => handleReport(id),
+            onClick: () => handleReport(dataId),
             color: "primary",
             name: "Report",
             content: <Icon icon="report-icon" />
@@ -45,8 +44,20 @@ export default function DropDown(props) {
     if(isSuccess && profile.data.id === user) {
         dropItem.push(
             {
+                id: 1,
+                onClick: () => handleEdit(dataId),
+                color: "primary",
+                name: "Edit",
+                content: <Icon icon="edit-icon" />
+            },
+        )
+    }
+
+    if(isSuccess && profile.data.id === user) {
+        dropItem.push(
+            {
                 id: 3,
-                onClick: () => handleDelete(id),
+                onClick: () => handleDelete(dataId),
                 color: "danger",
                 class: "text-danger",
                 name: "Delete",

@@ -13,11 +13,13 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { profileDetails } from '../../features/profileSlice'
+import LoadingComponent from '../../components/LoadingComponent'
+import LoadingContainer from '../../components/LoadingContainer'
 
 export default function Cards(props) {
     const navigate = useNavigate()
 
-    const { tweets, issuccess } = props
+    const { tweets, issuccess, onOpen, isloading } = props
 
     const dispatch = useDispatch()
 
@@ -28,13 +30,11 @@ export default function Cards(props) {
         (async() => {
             dispatch(profileDetails())
         })()
-    }, [])
+    }, [isSuccess])
 
     function handleComment(pk) {
         //
     }
-
-    console.log(isSuccess, profile)
 
     return (
         <>
@@ -55,10 +55,11 @@ export default function Cards(props) {
                         <div className='flex items-center'>
                             <DropDown
                                 icon={<Icon icon="menu-icon" />}
-                                id={item.id}
+                                dataId={item.id}
                                 isSuccess={isSuccess}
                                 profile={profile}
                                 user={item.profile.user.id}
+                                onOpen={onOpen}
                             />
                         </div>
                     </CardHeader>

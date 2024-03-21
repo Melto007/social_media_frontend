@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import setCanvasPreview from './setCanvasPreview'
 import { useSelector, useDispatch } from 'react-redux'
 import { postView } from '../../features/postSlice'
+import { profileDetails } from '../../features/profileSlice'
 
 import LoadingComponent from '../../components/LoadingComponent'
 import LoadingContainer from '../../components/LoadingContainer'
@@ -35,13 +36,14 @@ export default function HomePage() {
     const [ crop, setCrop ] = useState()
 
     const postSlice = useSelector(state => state.postSlice)
-    const { issuccess, isloading, post, iserror } = postSlice
+    const { issuccess, isloading, post } = postSlice
 
     useEffect(() => {
         (async() => {
             dispatch(postView())
+            dispatch(profileDetails())
         })()
-    }, [issuccess])
+    }, [])
 
     function handleFiles(e) {
         const file = e.target.files[0]
@@ -113,6 +115,8 @@ export default function HomePage() {
                 <Cards
                     tweets={issuccess && post.length !== 0 && post}
                     issuccess={issuccess}
+                    onOpen={onOpen}
+                    isloading={isloading}
                 />
             </MainContainer>
             <ModalComponent
@@ -124,6 +128,7 @@ export default function HomePage() {
                         <div className='flex flex-col gap-3'>
                             <div>
                                 <Textarea
+                                    value="hello"
                                     variant='bordered'
                                     placeholder="what's happening"
                                     className='border-none outline-none'
